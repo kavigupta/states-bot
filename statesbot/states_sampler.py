@@ -1,6 +1,8 @@
 import attr
 import numpy as np
 
+import networkx as nx
+
 
 @attr.s
 class States:
@@ -12,6 +14,10 @@ class States:
     used_counties = attr.ib()
     given_up = attr.ib()
     county_to_state = attr.ib()
+
+    @property
+    def county_to_state_no_nan(self):
+        return np.nan_to_num(self.county_to_state)
 
     @staticmethod
     def setup(meta):

@@ -37,6 +37,10 @@ class Metadata:
     count = attr.ib()
     stat = attr.ib()
     graph = attr.ib()
+    centers = attr.ib()
+
+    def bordering(self, a, b):
+        return any(x in a for y in b for x in self.graph.neighbors[y])
 
 
 def get_coords(feat):
@@ -51,7 +55,7 @@ def all_edges(coords, **kwargs):
 def edges(coords, i, centroid_distance=5, actual_distance=1e-2):
     distances = np.array(
         [
-            np.abs(coords[i][:, None] - c[None]).sum(-1).min()
+            np.partition(np.abs(coords[i][:, None] - c[None]).sum(-1).flatten(), 1)[1]
             if (np.abs(c.mean(0) - coords[i].mean(0)) < centroid_distance).all()
             else float("inf")
             for c in coords
