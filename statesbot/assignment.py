@@ -71,15 +71,25 @@ class Assignment:
 
         def transferability(county):
             neighbors = self.meta.graph.neighbors[county]
-            return len(neighbors & self.state_to_counties[smaller]) / len(
-                neighbors & self.state_to_counties[bigger]
+            adj_small = sum(
+                self.meta.graph.weights[a, county]
+                for a in neighbors & self.state_to_counties[smaller]
+                if a != county
             )
+            adj_big = sum(
+                self.meta.graph.weights[a, county]
+                for a in neighbors & self.state_to_counties[bigger]
+                if a != county
+            )
+            return adj_small / (adj_big + 1e-10)
 
         bigger_stat, smaller_stat = self.aggregated_stats[[bigger, smaller]]
         progress = False
-        for county in sorted(border_counties, key=transferability, reverse=True):
+
+        counties = sorted(border_counties, key=transferability, reverse=True)
+        for county in counties:
             if transferability(county) < 0.5:
-                break
+                continue
             if county in nx.algorithms.components.articulation_points(big_graph):
                 continue
             if self.meta.stat[county] * 2 < bigger_stat - smaller_stat:
@@ -109,10 +119,7 @@ class Assignment:
                     graph.add_edge(state, other_state)
         return graph
 
-    def remove_farthest(self, state_idx):
-        eles = self.meta.centers[sorted(self.state_to_counties[state_idx])]
-        centroid = eles.mean(0)
-        mean_dist = (((eles - centroid) ** 2).sum(1) ** 0.5).mean(0)
+    def remove_farthest(self, state_idx, rng):
         state = sorted(
             self.state_to_counties[state_idx]
             - set(
@@ -121,17 +128,24 @@ class Assignment:
                 )
             )
         )
-        idx_farthest = state[
-            ((self.meta.centers[state] - centroid) ** 2).sum(-1).argmax()
-        ]
+
+        coupling_by_county = {
+            x: sum(
+                self.meta.graph.weights.get((x, y), 0)
+                for y in self.meta.graph.neighbors[x]
+                if y in self.state_to_counties[state_idx]
+            )
+            for x in state
+        }
+
+        idx_farthest = min(state, key=coupling_by_county.get)
 
         contribution = self.meta.stat[idx_farthest] / self.meta.stat[state].sum()
 
         if contribution > 0.3:
             return
 
-        real_dist = ((self.meta.centers[idx_farthest] - centroid) ** 2).sum() ** 0.5
-        if real_dist / mean_dist <= 2.5:
+        if coupling_by_county[idx_farthest] > 0.3:
             return
 
         alternate_states = set(
@@ -139,8 +153,7 @@ class Assignment:
         ) - {state_idx}
         if not alternate_states:
             return
-        best = min(alternate_states, key=lambda i: self.aggregated_stats[i])
-        self.assign(idx_farthest, best)
+        self.assign(idx_farthest, rng.choice(list(alternate_states)))
         return True
 
     def draw(self, data, four_color=False):

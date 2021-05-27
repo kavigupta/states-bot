@@ -24,6 +24,7 @@ class Data:
         self.coords = [get_coords(feat) for feat in self.feats]
         self.centers = np.array([c.mean(0) for c in self.coords])
         self.neighbors = all_edges(self.coords)
+        self.weights = weights(self.feats, self.coords, self.neighbors)
 
     @lru_cache(None)
     def kaway(self, x, k):
@@ -63,3 +64,27 @@ def edges(coords, i, centroid_distance=5, actual_distance=1e-2):
     )
     [within_eps] = np.where(distances <= actual_distance)
     return set(within_eps)
+
+
+def weights(feats, coords, neighbors):
+    perimiters = {}
+    for a in range(len(feats)):
+        c = feats[a]["geometry"]["coordinates"]
+        c = [np.array(x) for y in c for x in y]
+        perimiters[a] = sum([(((x[1:] - x[:-1]) ** 2).sum(-1) ** 0.5).sum() for x in c])
+
+    weight = {}
+    for a, n_a in enumerate(neighbors):
+        for b in n_a:
+            if a == b:
+                continue
+            in_a, _ = np.where(
+                np.abs(coords[a][:, None] - coords[b][None]).sum(-1) < 0.1
+            )
+            in_a = sorted(set(in_a))
+            total = 0
+            for start, end in zip(in_a, in_a[1:]):
+                if start == end - 1:
+                    total += ((coords[a][start] - coords[a][end]) ** 2).sum() ** 0.5
+            weight[a, b] = total / perimiters[a]
+    return weight
