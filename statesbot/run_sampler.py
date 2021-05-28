@@ -1,4 +1,3 @@
-
 from itertools import count
 
 import numpy as np
@@ -8,12 +7,18 @@ from .assignment import Assignment
 
 from permacache import permacache
 
-@permacache("statesbot/run_sampler/sample", key_function=dict(data=lambda data: data.version, pbar=None))
+
+@permacache(
+    "statesbot/run_sampler/sample",
+    key_function=dict(data=lambda data: data.version, pbar=None),
+)
 def sample(data, *, rng_seed, n_states, pbar):
     meta = Metadata(n_states, data.pops, data, data.centers)
     rng = np.random.RandomState(rng_seed)
     best = sample_initial(meta, rng)
-    assign = Assignment.from_county_to_state(meta, best.county_to_state_no_nan.astype(int))
+    assign = Assignment.from_county_to_state(
+        meta, best.county_to_state_no_nan.astype(int)
+    )
     for idx in pbar(count()):
         if not assign.fix_border():
             break
@@ -25,6 +30,7 @@ def sample(data, *, rng_seed, n_states, pbar):
         if idx % 100 == 0:
             print(idx, frac)
     return assign.county_to_state
+
 
 def sample_initial(meta, rng):
     while True:

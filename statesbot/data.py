@@ -1,6 +1,9 @@
 import numpy as np
+import pandas as pd
 import tqdm
 import attr
+
+import geonamescache
 
 import electiondata as e
 from electiondata.examples.census_2010_pop import Census2010Population
@@ -12,10 +15,14 @@ from methodtools import lru_cache
 
 class Data:
     version = 1.0
+
     def __init__(self):
         geojson = PlotlyGeoJSON().get()
         self.feats = [
-            f for f in geojson["features"] if f["id"][:2] not in {"72", "15", "02"} and f["id"] not in {'25019', '53055'}
+            f
+            for f in geojson["features"]
+            if f["id"][:2] not in {"72", "15", "02"}
+            and f["id"] not in {"25019", "53055"}
         ]
         self.fipses = [f["id"] for f in self.feats]
         self.geojson = dict(type=geojson["type"], features=self.feats)
@@ -27,11 +34,44 @@ class Data:
         self.neighbors = all_edges(self.coords)
         self.weights = weights(self.feats, self.coords, self.neighbors)
 
+        self.cities = cities_dataset(self.fipses)
+
+    def name_state(self, counties):
+        cities_for_state = [city for county in counties for city in self.cities[county]]
+        biggest_city = max(cities_for_state, key=lambda x: x["population"])
+        if len(counties) == 1:
+            return biggest_city["name"]
+        cities_for_state = [x for x in cities_for_state if x != biggest_city]
+        distances = [
+            (x["latitude"] - biggest_city["latitude"]) ** 2
+            + (x["longitude"] - biggest_city["longitude"]) ** 2
+            for x in cities_for_state
+        ]
+
+        distances = np.array(distances) / max(distances)
+        next_city = max(
+            zip(cities_for_state, distances),
+            key=lambda x: x[0]["population"] / biggest_city["population"] + x[1],
+        )[0]
+        return combine_names(biggest_city["name"], next_city["name"])
+
     @lru_cache(None)
     def kaway(self, x, k):
         if k == 0:
             return {x}
         return {z for y in self.kaway(x, k - 1) for z in self.neighbors[y]}
+
+
+def combine_names(a, b):
+    common_letters = set(a[len(a) // 2 :]) & set(b[: len(b) // 2])
+    if not common_letters:
+        return a + "-" + b
+    best_indices = float("inf"), float("inf")
+    for c in common_letters:
+        idx = a[::-1].index(c), b.index(c)
+        if sum(idx) < sum(best_indices):
+            best_indices = idx
+    return a[: -best_indices[0] - 1] + b[best_indices[1] :]
 
 
 @attr.s
@@ -89,3 +129,56 @@ def weights(feats, coords, neighbors):
                     total += ((coords[a][start] - coords[a][end]) ** 2).sum() ** 0.5
             weight[a, b] = total / perimiters[a]
     return weight
+
+
+def cities_dataset(fipses):
+    cities_dataset = pd.read_csv(
+        "https://raw.githubusercontent.com/grammakov/USA-cities-and-states/master/us_cities_states_counties.csv",
+        sep="|",
+    )
+    cities_dataset = cities_dataset[cities_dataset.County == cities_dataset.County]
+    normalizer = e.usa_county_to_fips("State short")
+    normalizer.rewrite["hoonah angoon"] = "hoonah-angoon"
+    normalizer.rewrite["matanuska susitna"] = "matanuska-susitna"
+    normalizer.rewrite["prince of wales hyder"] = "prince of wales-hyder"
+    normalizer.rewrite["valdez cordova"] = "valdez-cordova"
+    normalizer.rewrite["yukon koyukuk"] = "yukon-koyukuk"
+    normalizer.rewrite["saint louis"] = "saint louis city"
+    normalizer.rewrite["northern mariana islands"] = "northern islands"
+    normalizer.rewrite["baltimore"] = "baltimore city"
+    normalizer.rewrite["saint thomas"] = "saint thomas island"
+    normalizer.rewrite["franklin"] = "franklin city"
+    normalizer.rewrite["richmond"] = "richmond city"
+    normalizer.rewrite["saint croix"] = "saint croix island"
+    normalizer.rewrite["bedford"] = "bedford city"
+    normalizer.rewrite["fairfax"] = "fairfax city"
+    normalizer.rewrite["roanoke"] = "roanoke city"
+    normalizer.rewrite["saint john"] = "saint john island"
+    normalizer.rewrite["american samoa"] = "ERROR"
+    normalizer.rewrite["federated states of micro"] = "ERROR"
+    normalizer.rewrite["marshall islands"] = "ERROR"
+    normalizer.rewrite["palau"] = "ERROR"
+
+    normalizer.apply_to_df(cities_dataset, "County", "FIPS", var_name="normalizer")
+    cd = e.remove_errors(cities_dataset, "FIPS")
+
+    backmap = {fips: i for i, fips in enumerate(fipses)}
+    result = {
+        (city, state): backmap[fips]
+        for city, state, fips in zip(cd.City, cd["State short"], cd.FIPS)
+        if fips in backmap
+    }
+
+    usa = [
+        city
+        for city in geonamescache.GeonamesCache().get_cities().values()
+        if city["countrycode"] == "US"
+    ]
+    cities = [[] for _ in range(len(fipses))]
+    for city in usa:
+        key = city["name"].replace("St.", "Saint"), city["admin1code"]
+        pop = city["population"]
+        if key not in result:
+            continue
+        cities[result[key]].append(city)
+    return cities
