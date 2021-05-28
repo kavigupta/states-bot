@@ -11,10 +11,11 @@ from methodtools import lru_cache
 
 
 class Data:
+    version = 1.0
     def __init__(self):
         geojson = PlotlyGeoJSON().get()
         self.feats = [
-            f for f in geojson["features"] if f["id"][:2] not in {"72", "15", "02"}
+            f for f in geojson["features"] if f["id"][:2] not in {"72", "15", "02"} and f["id"] not in {'25019', '53055'}
         ]
         self.fipses = [f["id"] for f in self.feats]
         self.geojson = dict(type=geojson["type"], features=self.feats)
