@@ -156,8 +156,12 @@ class Assignment:
         self.assign(idx_farthest, rng.choice(list(alternate_states)))
         return True
 
+    @property
+    def coloring(self):
+        return nx.algorithms.coloring.greedy_color(self.state_graph)
+
     def draw(self, data, four_color=False):
-        coloring = nx.algorithms.coloring.greedy_color(self.state_graph)
+        coloring = self.coloring
         cts = self.county_to_state
         if four_color:
             cts = [coloring[x if x == x else 0] + x / 100 for x in cts]
