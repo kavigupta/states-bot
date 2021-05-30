@@ -245,8 +245,29 @@ class Assignment:
                 "geometry": "Polygon",
             },
         )
+        capitols = fiona.open(
+            "temporary/capitol.shp",
+            "w",
+            "ESRI Shapefile",
+            {'properties': {}, 'geometry': 'Point'},
+        )
+
         for state in self.state_to_counties:
 
             c = coloring[state]
             shape.write(self.feature_for_state(state, c, self.state_name(state, data)))
+            city = max(
+                [city for county in self.state_to_counties[state] for city in data.cities[county]],
+                key=lambda x: x["population"],
+            )
+            capitols.write({
+                "type": "Feature",
+                "id": str(state),
+                "properties": {},
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": (city["longitude"], city["latitude"]),
+                },
+            })
         shape.close()
+        capitols.close()
