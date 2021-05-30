@@ -33,10 +33,13 @@ class Data:
         for state, scounties in self.original_states.items():
             overlap = list(set(counties) & set(scounties))
             overlap = self.pops[overlap].sum()
-            if overlap / self.pops[scounties].sum() > 0.8:
+            if overlap / self.pops[scounties].sum() > 2 / 3:
                 contained_states.append((overlap, state))
         contained_states = sorted(contained_states, reverse=True)
-        if not contained_states:
+        if (
+            sum(c[0] for c in contained_states[:2])
+            < self.pops[list(counties)].sum() / 2
+        ):
             return None
         if len(contained_states) == 1:
             return contained_states[0][1]
