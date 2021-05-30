@@ -1,5 +1,5 @@
 import os
-from qgis.core import (QgsProject, QgsLayoutExporter, QgsApplication)
+from qgis.core import QgsProject, QgsLayoutExporter, QgsApplication
 
 QgsApplication.setPrefixPath("/usr", True)
 
@@ -18,7 +18,8 @@ manager = QgsProject.instance().layoutManager()
 layout = manager.layoutByName("Main")
 
 exporter = QgsLayoutExporter(layout)
-exporter.exportToImage(project_instance.absolutePath() + "/layout.png",
-                     QgsLayoutExporter.ImageExportSettings())
-
-# app.exitQgis()
+exporter.exportToImage(
+    project_instance.absolutePath() + "/layout.png",
+    QgsLayoutExporter.ImageExportSettings(),
+)
+app.exitQgis()
