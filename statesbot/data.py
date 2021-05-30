@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import numpy as np
 import pandas as pd
 import tqdm
@@ -163,11 +165,10 @@ def cities_dataset(fipses):
     cd = e.remove_errors(cities_dataset, "FIPS")
 
     backmap = {fips: i for i, fips in enumerate(fipses)}
-    result = {
-        (city, state): backmap[fips]
-        for city, state, fips in zip(cd.City, cd["State short"], cd.FIPS)
-        if fips in backmap
-    }
+    result = defaultdict(list)
+    for city, state, fips in zip(cd.City, cd["State short"], cd.FIPS):
+        if fips in backmap:
+            result[city, state].append(backmap[fips])
 
     usa = [
         city
@@ -177,8 +178,8 @@ def cities_dataset(fipses):
     cities = [[] for _ in range(len(fipses))]
     for city in usa:
         key = city["name"].replace("St.", "Saint"), city["admin1code"]
-        pop = city["population"]
         if key not in result:
             continue
-        cities[result[key]].append(city)
+        for county in result[key]:
+            cities[county].append(city)
     return cities
