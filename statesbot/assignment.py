@@ -5,9 +5,13 @@ import numpy as np
 import networkx as nx
 import plotly.graph_objects as go
 
+from shapely.ops import unary_union
+from shapely import geometry
+
 
 @attr.s
 class Assignment:
+    data = attr.ib()
     meta = attr.ib()
     state_to_counties = attr.ib()
     county_to_state = attr.ib()
@@ -31,11 +35,11 @@ class Assignment:
         return np.array([self.meta.stat[x].sum() for x in self.state_lists])
 
     @classmethod
-    def from_county_to_state(cls, meta, county_to_state):
+    def from_county_to_state(cls, data, meta, county_to_state):
         state_to_counties = defaultdict(set)
         for county, state in enumerate(county_to_state):
             state_to_counties[state].add(county)
-        return cls(meta, state_to_counties, county_to_state)
+        return cls(data, meta, state_to_counties, county_to_state)
 
     def optimal_border_transitions(self):
         bordering_states = []
@@ -179,3 +183,38 @@ class Assignment:
         # figure.update_layout(geo=dict(bgcolor=BACKGROUND, lakecolor=BACKGROUND))
         figure.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
         return figure
+
+    def county_polygons_for_state(self, state):
+        counties = self.state_to_counties[state]
+        return [
+            poly
+            for county in counties
+            for polys in self.data.feats[county]["geometry"]["coordinates"]
+            for poly in polys
+        ]
+
+    def multi_polygons_for_state(self, state):
+        polys = unary_union(
+            [geometry.Polygon(c) for c in self.county_polygons_for_state(state)]
+        )
+        if isinstance(polys, geometry.polygon.Polygon):
+            return [polys]
+        return polys
+
+    def feature_for_state(self, state, statecolor, name):
+        return {
+            "type": "Feature",
+            "id": str(state),
+            "properties": dict(
+                id=state,
+                name=name,
+                statecolor=statecolor,
+            ),
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    list(zip(*poly.exterior.coords.xy))
+                    for poly in self.multi_polygons_for_state(state)
+                ],
+            },
+        }
