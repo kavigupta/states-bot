@@ -17,7 +17,7 @@ def sample(data, *, rng_seed, n_states, pbar):
     rng = np.random.RandomState(rng_seed)
     best = sample_initial(meta, rng)
     assign = Assignment.from_county_to_state(
-        meta, best.county_to_state_no_nan.astype(int)
+        data, meta, best.county_to_state_no_nan.astype(int)
     )
     for idx in pbar(count()):
         if not assign.fix_border():

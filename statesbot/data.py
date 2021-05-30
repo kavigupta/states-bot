@@ -1,45 +1,32 @@
 from collections import defaultdict
 
-import us
 import numpy as np
-import pandas as pd
 import tqdm
 import attr
 
-import geonamescache
-
-import electiondata as e
-from electiondata.examples.census_2010_pop import Census2010Population
-from electiondata.examples.plotly_geojson import PlotlyGeoJSON
-
 from permacache import permacache, stable_hash
 from methodtools import lru_cache
+
+from .countylikes import get_countylikes
 
 
 class Data:
     version = 1.0
 
     def __init__(self):
-        geojson = PlotlyGeoJSON().get()
-        self.feats = [
-            f
-            for f in geojson["features"]
-            if f["id"][:2] not in {"72", "15", "02"}
-            and f["id"] not in {"25019", "53055"}
-        ]
-        self.fipses = [f["id"] for f in self.feats]
-        self.areas = np.array([f["properties"]["CENSUSAREA"] for f in self.feats])
-        self.original_states = get_states(self.fipses)
-        self.geojson = dict(type=geojson["type"], features=self.feats)
-        data = Census2010Population(e.alaska.FIPS).get()
-        pop_by_fips = dict(zip(data.FIPS, data.CENSUS2010POP))
-        self.pops = np.array([pop_by_fips[f] for f in self.fipses])
-        self.coords = [get_coords(feat) for feat in self.feats]
-        self.centers = np.array([c.mean(0) for c in self.coords])
-        self.neighbors = all_edges(self.coords)
-        self.weights = weights(self.feats, self.coords, self.neighbors)
+        self.countylikes = get_countylikes()
+        self.pops = np.array([f.pop for f in self.countylikes])
 
-        self.cities = cities_dataset(self.fipses)
+        self.original_states = get_states(self.countylikes)
+        self.centers = np.array([c.center for c in self.countylikes])
+        self.neighbors = all_edges([x.flat_coords for x in self.countylikes])
+        self.weights = weights(self.countylikes, self.neighbors)
+
+    @property
+    def geojson(self):
+        return dict(
+            type="FeatureCollection", features=[f.feature for f in self.countylikes]
+        )
 
     def name_state_by_real_states(self, counties):
         contained_states = []
@@ -61,7 +48,9 @@ class Data:
         if name is not None:
             return name
 
-        cities_for_state = [city for county in counties for city in self.cities[county]]
+        cities_for_state = [
+            city for county in counties for city in self.countylikes[county].cities
+        ]
         biggest_city = max(cities_for_state, key=lambda x: x["population"])
         if len(counties) == 1:
             return biggest_city["name"]
@@ -106,10 +95,10 @@ def combine_names(a, b):
     return a[: -best_indices[0] - 1] + b[best_indices[1] :]
 
 
-def get_states(fipses):
+def get_states(countylikes):
     by_state = defaultdict(list)
-    for i, fips in enumerate(fipses):
-        by_state[us.states.lookup(fips[:2]).name].append(i)
+    for i, c in enumerate(countylikes):
+        by_state[c.state].append(i)
     return dict(by_state.items())
 
 
@@ -122,10 +111,6 @@ class Metadata:
 
     def bordering(self, a, b):
         return any(x in a for y in b for x in self.graph.neighbors[y])
-
-
-def get_coords(feat):
-    return np.array([x for x in feat["geometry"]["coordinates"] for x in x for x in x])
 
 
 @permacache("statesbot/data/all_edges", key_function=dict(all_edges=stable_hash))
@@ -146,10 +131,10 @@ def edges(coords, i, centroid_distance=5, actual_distance=1e-2):
     return set(within_eps)
 
 
-def weights(feats, coords, neighbors):
+def weights(countylikes, neighbors):
     perimiters = {}
-    for a in range(len(feats)):
-        c = feats[a]["geometry"]["coordinates"]
+    for a in range(len(countylikes)):
+        c = countylikes[a].coordinates
         c = [np.array(x) for y in c for x in y]
         perimiters[a] = sum([(((x[1:] - x[:-1]) ** 2).sum(-1) ** 0.5).sum() for x in c])
 
@@ -159,65 +144,22 @@ def weights(feats, coords, neighbors):
             if a == b:
                 continue
             in_a, _ = np.where(
-                np.abs(coords[a][:, None] - coords[b][None]).sum(-1) < 0.1
+                np.abs(
+                    countylikes[a].flat_coords[:, None]
+                    - countylikes[b].flat_coords[None]
+                ).sum(-1)
+                < 0.1
             )
             in_a = sorted(set(in_a))
             total = 0
             for start, end in zip(in_a, in_a[1:]):
                 if start == end - 1:
-                    total += ((coords[a][start] - coords[a][end]) ** 2).sum() ** 0.5
+                    total += (
+                        (
+                            countylikes[a].flat_coords[start]
+                            - countylikes[a].flat_coords[end]
+                        )
+                        ** 2
+                    ).sum() ** 0.5
             weight[a, b] = total / perimiters[a]
     return weight
-
-
-def cities_dataset(fipses):
-    cities_dataset = pd.read_csv(
-        "https://raw.githubusercontent.com/grammakov/USA-cities-and-states/master/us_cities_states_counties.csv",
-        sep="|",
-    )
-    cities_dataset = cities_dataset[cities_dataset.County == cities_dataset.County]
-    normalizer = e.usa_county_to_fips("State short")
-    normalizer.rewrite["hoonah angoon"] = "hoonah-angoon"
-    normalizer.rewrite["matanuska susitna"] = "matanuska-susitna"
-    normalizer.rewrite["prince of wales hyder"] = "prince of wales-hyder"
-    normalizer.rewrite["valdez cordova"] = "valdez-cordova"
-    normalizer.rewrite["yukon koyukuk"] = "yukon-koyukuk"
-    normalizer.rewrite["saint louis"] = "saint louis city"
-    normalizer.rewrite["northern mariana islands"] = "northern islands"
-    normalizer.rewrite["baltimore"] = "baltimore city"
-    normalizer.rewrite["saint thomas"] = "saint thomas island"
-    normalizer.rewrite["franklin"] = "franklin city"
-    normalizer.rewrite["richmond"] = "richmond city"
-    normalizer.rewrite["saint croix"] = "saint croix island"
-    normalizer.rewrite["bedford"] = "bedford city"
-    normalizer.rewrite["fairfax"] = "fairfax city"
-    normalizer.rewrite["roanoke"] = "roanoke city"
-    normalizer.rewrite["saint john"] = "saint john island"
-    normalizer.rewrite["american samoa"] = "ERROR"
-    normalizer.rewrite["federated states of micro"] = "ERROR"
-    normalizer.rewrite["marshall islands"] = "ERROR"
-    normalizer.rewrite["palau"] = "ERROR"
-
-    normalizer.apply_to_df(cities_dataset, "County", "FIPS", var_name="normalizer")
-    cd = e.remove_errors(cities_dataset, "FIPS")
-
-    backmap = {fips: i for i, fips in enumerate(fipses)}
-    result = {}
-    for city, state, fips in zip(cd.City, cd["State short"], cd.FIPS):
-        if (city, state) in result:
-            continue
-        if fips in backmap:
-            result[city, state] = backmap[fips]
-
-    usa = [
-        city
-        for city in geonamescache.GeonamesCache().get_cities().values()
-        if city["countrycode"] == "US"
-    ]
-    cities = [[] for _ in range(len(fipses))]
-    for city in usa:
-        key = city["name"].replace("St.", "Saint"), city["admin1code"]
-        if key not in result:
-            continue
-        cities[result[key]].append(city)
-    return cities
