@@ -1,4 +1,4 @@
-counties.shp
-counties.shx
-counties.dbf
-counties.cpg
+*.shp
+*.shx
+*.dbf
+*.cpg
