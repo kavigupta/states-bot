@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+import us
 import numpy as np
 import pandas as pd
 import tqdm
@@ -27,6 +28,8 @@ class Data:
             and f["id"] not in {"25019", "53055"}
         ]
         self.fipses = [f["id"] for f in self.feats]
+        self.areas = np.array([f["properties"]["CENSUSAREA"] for f in self.feats])
+        self.original_states = get_states(self.fipses)
         self.geojson = dict(type=geojson["type"], features=self.feats)
         data = Census2010Population(e.alaska.FIPS).get()
         pop_by_fips = dict(zip(data.FIPS, data.CENSUS2010POP))
@@ -38,12 +41,34 @@ class Data:
 
         self.cities = cities_dataset(self.fipses)
 
+    def name_state_by_real_states(self, counties):
+        contained_states = []
+        for state, scounties in self.original_states.items():
+            overlap = list(set(counties) & set(scounties))
+            overlap = self.pops[overlap].sum()
+            if overlap / self.pops[scounties].sum() > 0.8:
+                contained_states.append((overlap, state))
+        contained_states = sorted(contained_states, reverse=True)
+        if not contained_states:
+            return None
+        if len(contained_states) == 1:
+            return contained_states[0][1]
+        (_, s1), (_, s2), *_ = contained_states
+        return combine_names(s1, s2)
+
     def name_state(self, counties):
+        name = self.name_state_by_real_states(counties)
+        if name is not None:
+            return name
+
         cities_for_state = [city for county in counties for city in self.cities[county]]
         biggest_city = max(cities_for_state, key=lambda x: x["population"])
         if len(counties) == 1:
             return biggest_city["name"]
-        cities_for_state = [x for x in cities_for_state if x != biggest_city]
+        cities_for_state = sorted(
+            [x for x in cities_for_state if x != biggest_city],
+            key=lambda x: x["population"],
+        )[-5:]
         distances = [
             (x["latitude"] - biggest_city["latitude"]) ** 2
             + (x["longitude"] - biggest_city["longitude"]) ** 2
@@ -67,13 +92,25 @@ class Data:
 def combine_names(a, b):
     common_letters = set(a[len(a) // 2 :]) & set(b[: len(b) // 2])
     if not common_letters:
-        return a + "-" + b
+        while not b[0].lower() in "aeiou":
+            b = b[1:]
+        b = b[1:]
+        while not a[-1].lower() in "aeiou":
+            a = a[:-1]
+        return a + b
     best_indices = float("inf"), float("inf")
     for c in common_letters:
         idx = a[::-1].index(c), b.index(c)
         if sum(idx) < sum(best_indices):
             best_indices = idx
     return a[: -best_indices[0] - 1] + b[best_indices[1] :]
+
+
+def get_states(fipses):
+    by_state = defaultdict(list)
+    for i, fips in enumerate(fipses):
+        by_state[us.states.lookup(fips[:2]).name].append(i)
+    return dict(by_state.items())
 
 
 @attr.s
@@ -165,10 +202,12 @@ def cities_dataset(fipses):
     cd = e.remove_errors(cities_dataset, "FIPS")
 
     backmap = {fips: i for i, fips in enumerate(fipses)}
-    result = defaultdict(list)
+    result = {}
     for city, state, fips in zip(cd.City, cd["State short"], cd.FIPS):
+        if (city, state) in result:
+            continue
         if fips in backmap:
-            result[city, state].append(backmap[fips])
+            result[city, state] = backmap[fips]
 
     usa = [
         city
@@ -180,6 +219,5 @@ def cities_dataset(fipses):
         key = city["name"].replace("St.", "Saint"), city["admin1code"]
         if key not in result:
             continue
-        for county in result[key]:
-            cities[county].append(city)
+        cities[result[key]].append(city)
     return cities

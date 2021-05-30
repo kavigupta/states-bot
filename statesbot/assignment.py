@@ -4,6 +4,7 @@ import attr
 import numpy as np
 import networkx as nx
 import plotly.graph_objects as go
+import fiona
 
 from shapely.ops import unary_union
 from shapely import geometry
@@ -229,3 +230,23 @@ class Assignment:
                 ],
             },
         }
+
+    def state_name(self, state, data):
+        return data.name_state(self.state_to_counties[state])
+
+    def ship(self, data):
+        coloring = self.coloring
+        shape = fiona.open(
+            "temporary/counties.shp",
+            "w",
+            "ESRI Shapefile",
+            {
+                "properties": {"id": "int:10", "statecolor": "int:10", "name": "str"},
+                "geometry": "Polygon",
+            },
+        )
+        for state in self.state_to_counties:
+
+            c = coloring[state]
+            shape.write(self.feature_for_state(state, c, self.state_name(state, data)))
+        shape.close()
