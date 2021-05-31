@@ -11,7 +11,7 @@ from .countylikes import get_countylikes
 
 
 class Data:
-    version = 1.0
+    version = 1.3
 
     def __init__(self):
         self.countylikes = get_countylikes()
