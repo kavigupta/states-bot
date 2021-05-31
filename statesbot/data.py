@@ -9,17 +9,33 @@ from methodtools import lru_cache
 
 from .countylikes import get_countylikes
 
+SPECIAL_EDGES = [
+    ("51099", "24017"),  # south of dc
+    ("36103", "09001"),  # long island connected to conneticut
+    ("36103", "09009"),
+    ("36103", "09007"),
+    ("36103", "09011"),
+    ("26097", "26047"),  # michigan's parts connected
+    ("51131", "51810"),  # virginia beach
+    ("51131", "51710"),
+]
+
 
 class Data:
-    version = 1.3
+    version = 1.6
 
     def __init__(self):
         self.countylikes = get_countylikes()
+        self.ident_back = {x.ident: i for i, x in enumerate(self.countylikes)}
         self.pops = np.array([f.pop for f in self.countylikes])
 
         self.original_states = get_states(self.countylikes)
         self.centers = np.array([c.center for c in self.countylikes])
         self.neighbors = all_edges([x.flat_coords for x in self.countylikes])
+        for x, y in SPECIAL_EDGES:
+            x, y = self.ident_back[x], self.ident_back[y]
+            self.neighbors[x].add(y)
+            self.neighbors[y].add(x)
         self.weights = weights(self.countylikes, self.neighbors)
 
     @property
