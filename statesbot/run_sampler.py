@@ -8,6 +8,20 @@ from .assignment import Assignment
 from permacache import permacache
 
 
+def sample_guaranteed(data, *, rng_seed, n_states, pbar, bar=2.5):
+    meta = Metadata(n_states, data.pops, data, data.centers)
+    rng = np.random.RandomState(rng_seed)
+    while True:
+        assign = Assignment.from_county_to_state(
+            data,
+            meta,
+            sample(data, rng_seed=rng.choice(2 ** 32), n_states=n_states, pbar=pbar),
+        )
+        frac = assign.aggregated_stats.max() / assign.aggregated_stats.min()
+        if frac < bar:
+            return assign
+
+
 @permacache(
     "statesbot/run_sampler/sample",
     key_function=dict(data=lambda data: data.version, pbar=None),
