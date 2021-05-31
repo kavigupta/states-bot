@@ -4,11 +4,11 @@ import attr
 import numpy as np
 import networkx as nx
 import plotly.graph_objects as go
-import fiona
 
 from shapely.ops import unary_union
 from shapely import geometry
 
+from .map import MapObject
 
 @attr.s
 class Assignment:
@@ -234,46 +234,26 @@ class Assignment:
     def state_name(self, state, data):
         return data.name_state(self.state_to_counties[state])
 
-    def ship(self, data):
-        coloring = self.coloring
-        shape = fiona.open(
-            "temporary/counties.shp",
-            "w",
-            "ESRI Shapefile",
-            {
-                "properties": {"id": "int:10", "statecolor": "int:10", "name": "str"},
-                "geometry": "Polygon",
+    def export(self, data):
+        return MapObject(
+            coloring=self.coloring,
+            state_to_counties=self.state_to_counties,
+            capitols={
+                state: max(
+                    [
+                        city
+                        for county in self.state_to_counties[state]
+                        for city in data.countylikes[county].cities
+                    ],
+                    key=lambda x: x["population"],
+                )
+                for state in self.state_to_counties
+            },
+            state_names={
+                state: self.state_name(state, data) for state in self.state_to_counties
+            },
+            polygons={
+                state: self.multi_polygons_for_state(state)
+                for state in self.state_to_counties
             },
         )
-        capitols = fiona.open(
-            "temporary/capitol.shp",
-            "w",
-            "ESRI Shapefile",
-            {"properties": {}, "geometry": "Point"},
-        )
-
-        for state in self.state_to_counties:
-
-            c = coloring[state]
-            shape.write(self.feature_for_state(state, c, self.state_name(state, data)))
-            city = max(
-                [
-                    city
-                    for county in self.state_to_counties[state]
-                    for city in data.countylikes[county].cities
-                ],
-                key=lambda x: x["population"],
-            )
-            capitols.write(
-                {
-                    "type": "Feature",
-                    "id": str(state),
-                    "properties": {},
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": (city["longitude"], city["latitude"]),
-                    },
-                }
-            )
-        shape.close()
-        capitols.close()
