@@ -218,9 +218,9 @@ class Assignment:
             "type": "Feature",
             "id": str(state),
             "properties": dict(
-                id=state,
+                id=int(state),
                 name=name,
-                statecolor=statecolor,
+                statecolor=int(statecolor),
             ),
             "geometry": {
                 "type": "Polygon",
