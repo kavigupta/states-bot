@@ -4,7 +4,7 @@ import sys
 from qgis.core import QgsProject, QgsLayoutExporter, QgsApplication
 
 
-_, title, path, dpi = sys.argv
+_, title, path, version, dpi = sys.argv
 dpi = int(dpi)
 
 QgsApplication.setPrefixPath("/usr", True)
@@ -20,6 +20,7 @@ project_instance = QgsProject.instance()
 project_instance.setFileName(project_path)
 project_instance.read()
 project_instance.setTitle(title)
+project_instance.setCustomVariables(dict(statesbotversion=version))
 
 manager = QgsProject.instance().layoutManager()
 layout = manager.layoutByName("Main")
@@ -27,8 +28,5 @@ layout = manager.layoutByName("Main")
 exporter = QgsLayoutExporter(layout)
 settings = QgsLayoutExporter.ImageExportSettings()
 settings.dpi = dpi
-exporter.exportToImage(
-    os.path.abspath(path),
-    settings
-)
+exporter.exportToImage(os.path.abspath(path), settings)
 app.exitQgis()
