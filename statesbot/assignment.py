@@ -10,6 +10,7 @@ from shapely import geometry
 
 from .map import MapObject
 
+
 @attr.s
 class Assignment:
     data = attr.ib()

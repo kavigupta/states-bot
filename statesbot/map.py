@@ -2,6 +2,7 @@ import attr
 
 import fiona
 
+
 @attr.s
 class MapObject:
     coloring = attr.ib()
