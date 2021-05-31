@@ -63,7 +63,7 @@ def partition(feat, shape_path):
         return shapely.ops.unary_union(shapely.ops.snap(x, y, tol))
 
     snapped = {}
-    for k in subcounty_polys:
+    for k in sorted(subcounty_polys, key=lambda x: -subcounty_areas[x]):
         updated = snap(subcounty_polys[k], feat_poly, 0.05)
         for k2 in snapped:
             updated = snap(updated, snapped[k2], 0.05)
