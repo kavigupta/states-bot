@@ -6,7 +6,8 @@ import fiona
 @attr.s
 class MapObject:
     coloring = attr.ib()
-    state_to_counties = attr.ib()
+    states = attr.ib()
+    ident_to_state = attr.ib()
     capitols = attr.ib()
     state_names = attr.ib()
     polygons = attr.ib()
@@ -29,7 +30,7 @@ class MapObject:
             {"properties": {}, "geometry": "Point"},
         )
 
-        for state in self.state_to_counties:
+        for state in self.states:
 
             c = coloring[state]
             shape.write(self.feature_for_state(state, c, self.state_names[state]))

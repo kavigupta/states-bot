@@ -238,7 +238,11 @@ class Assignment:
     def export(self, data):
         return MapObject(
             coloring=self.coloring,
-            state_to_counties=self.state_to_counties,
+            states=list(self.state_to_counties),
+            ident_to_state={
+                x.ident: int(self.county_to_state[i])
+                for i, x in enumerate(data.countylikes)
+            },
             capitols={
                 state: max(
                     [
