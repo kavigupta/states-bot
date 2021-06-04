@@ -84,6 +84,7 @@ def get_subset_county(feat, shape_path):
                 area=subcounty_areas[subcounty],
                 pop=subcounty_pops[subcounty],
                 coordinates=coordinates_for(subcounty_polys[subcounty]),
+                dem_2020=feat.dem_2020,
             )
         )
     return subcounties

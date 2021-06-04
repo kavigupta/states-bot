@@ -30,6 +30,16 @@ def current_tweet_id():
     return 1
 
 
-def tweet_map(title, image):
-    get_api().update_with_media(image, status=title)
+def tweet_map(title, extra_title, images):
+    initial_tweet = get_api().update_with_media(
+        images["atlas", "small"],
+        status=title + " " + extra_title % images["atlas", "large"],
+    )
     print("Tweeted message")
+    get_api().update_with_media(
+        images["politics", "small"],
+        in_reply_to_status_id=initial_tweet.id,
+        status="Political Version " + extra_title % images["politics", "large"],
+    )
+    print("Tweeted reply")
+    return x

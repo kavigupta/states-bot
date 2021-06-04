@@ -19,15 +19,17 @@ class Countylike:
     area = attr.ib()
     coordinates = attr.ib()
     pop = attr.ib()
+    dem_2020 = attr.ib()
 
     @classmethod
-    def of(cls, f, city_map, pop_by_fips):
+    def of(cls, f, city_map, pop_by_fips, dem_2020_by_fips):
         return cls(
             ident=f["id"],
             cities=city_map[f["id"]],
             area=f["properties"]["CENSUSAREA"],
             coordinates=f["geometry"]["coordinates"],
             pop=pop_by_fips[f["id"]],
+            dem_2020=dem_2020_by_fips[f["id"]],
         )
 
     @property
@@ -57,8 +59,12 @@ def get_counties():
     city_map = cities_dataset()
     data = Census2010Population(e.alaska.FIPS).get()
     pop_by_fips = dict(zip(data.FIPS, data.CENSUS2010POP))
+    data_2020 = pd.read_csv("csvs/2020_demographics_votes_fips.csv")
+    dem_2020_by_fips = {
+        f"{k:05d}": v for k, v in zip(data_2020.FIPS, data_2020["Biden 2020 Margin"])
+    }
     return [
-        Countylike.of(f, city_map, pop_by_fips)
+        Countylike.of(f, city_map, pop_by_fips, dem_2020_by_fips)
         for f in geojson["features"]
         if f["id"][:2] not in {"72", "15", "02"} and f["id"] not in {"25019", "53055"}
     ]

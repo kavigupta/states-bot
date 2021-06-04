@@ -11,6 +11,26 @@ class MapObject:
     capitols = attr.ib()
     state_names = attr.ib()
     polygons = attr.ib()
+    dem_2020 = attr.ib(default=None)
+    pop_2020 = attr.ib(default=None)
+
+    def attach_to(self, data):
+        dem_2020_by_ident = {
+            c.ident: (c.pop, c.dem_2020 * c.pop) for c in data.countylikes
+        }
+        self.dem_2020 = {}
+        self.pop_2020 = {}
+        for state in self.states:
+            pop = 0
+            margin = 0
+            for c, s in self.ident_to_state.items():
+                if s != state:
+                    continue
+                p, m = dem_2020_by_ident[c]
+                pop += p
+                margin += m
+            self.dem_2020[state] = margin / pop
+            self.pop_2020[state] = pop
 
     def ship(self):
         coloring = self.coloring
@@ -19,7 +39,12 @@ class MapObject:
             "w",
             "ESRI Shapefile",
             {
-                "properties": {"id": "int:10", "statecolor": "int:10", "name": "str"},
+                "properties": {
+                    "id": "int:10",
+                    "statecolor": "int:10",
+                    "name": "str",
+                    "dem_2020": "float",
+                },
                 "geometry": "Polygon",
             },
         )
@@ -33,7 +58,8 @@ class MapObject:
         for state in self.states:
 
             c = coloring[state]
-            shape.write(self.feature_for_state(state, c, self.state_names[state]))
+            s = self.feature_for_state(state, c, self.state_names[state])
+            shape.write(s)
             city = self.capitols[state]
             capitols.write(
                 {
@@ -57,6 +83,7 @@ class MapObject:
                 id=int(state),
                 name=name,
                 statecolor=int(statecolor),
+                dem_2020=self.dem_2020[state],
             ),
             "geometry": {
                 "type": "Polygon",
@@ -65,3 +92,28 @@ class MapObject:
                 ],
             },
         }
+
+    def apportion(self, count=435):
+        district_size = sum(self.pop_2020.values()) / 435
+        apportion = {
+            s: max(1, int(self.pop_2020[s] / district_size)) for s in self.pop_2020
+        }
+        while sum(apportion.values()) < count:
+            s = max(
+                self.pop_2020,
+                key=lambda s: self.pop_2020[s] - district_size * apportion[s],
+            )
+            apportion[s] += 1
+        return apportion
+
+    def statistics(self):
+        apportionment = self.apportion()
+        dem_ec, gop_ec, dem_senate, gop_senate = 0, 0, 0, 0
+        for s in self.pop_2020:
+            if self.dem_2020[s] > 0:
+                dem_ec += apportionment[s] + 2
+                dem_senate += 2
+            else:
+                gop_ec += apportionment[s] + 2
+                gop_senate += 2
+        return dem_ec, gop_ec, dem_senate, gop_senate
