@@ -25,7 +25,7 @@
         <property key="expandedLegendNodes"/>
       </customproperties>
     </layer-tree-layer>
-    <layer-tree-layer checked="Qt::Checked" expanded="1" name="ne_10m_rivers_lake_centerlines" source="./naturalearth/ne_10m_rivers_lake_centerlines.dbf|layername=ne_10m_rivers_lake_centerlines" providerKey="ogr" id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c">
+    <layer-tree-layer checked="Qt::Unchecked" expanded="1" name="ne_10m_rivers_lake_centerlines" source="./naturalearth/ne_10m_rivers_lake_centerlines.dbf|layername=ne_10m_rivers_lake_centerlines" providerKey="ogr" id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c">
       <customproperties>
         <property key="expandedLegendNodes"/>
       </customproperties>
@@ -44,7 +44,7 @@
         <property key="expandedLegendNodes"/>
       </customproperties>
     </layer-tree-layer>
-    <layer-tree-layer checked="Qt::Checked" expanded="0" name="ne_10m_roads" source="./naturalearth/ne_10m_roads.dbf|layername=ne_10m_roads" providerKey="ogr" id="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348">
+    <layer-tree-layer checked="Qt::Unchecked" expanded="0" name="ne_10m_roads" source="./naturalearth/ne_10m_roads.dbf|layername=ne_10m_roads" providerKey="ogr" id="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348">
       <customproperties>
         <property key="expandedLegendNodes"/>
       </customproperties>
@@ -108,27 +108,27 @@
   </layer-tree-group>
   <snapping-settings unit="1" intersection-snapping="0" enabled="0" type="1" tolerance="12" mode="2">
     <individual-layer-settings>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_land_bcbd445c_69ac_46c0_86c2_d440fe34ba09"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="counties_5ed9d7af_4563_4698_abbd_e71a28a969de"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="counties_atlas_a6dc9835_32d0_43df_8c98_be46b155024f"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="counties_da36db4c_f1a9_4154_89f2_c0e4090cf75b"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_populated_places_eadd5df5_d313_4605_a835_801a9f871519"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
       <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_ocean_b46737f8_8ae0_458d_b926_4e7605a2ffb1"/>
       <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348"/>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="counties_atlas_a6dc9835_32d0_43df_8c98_be46b155024f"/>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_populated_places_eadd5df5_d313_4605_a835_801a9f871519"/>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="counties_5ed9d7af_4563_4698_abbd_e71a28a969de"/>
+      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_land_bcbd445c_69ac_46c0_86c2_d440fe34ba09"/>
       <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="counties_da36db4c_f1a9_4154_89f2_c0e4090cf75b"/>
-      <layer-setting enabled="0" type="1" tolerance="12" units="1" id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
     </individual-layer-settings>
   </snapping-settings>
   <relations/>
   <mapcanvas name="theMapCanvas" annotationsVisible="1">
     <units>meters</units>
     <extent>
-      <xmin>-4064366.17100942740216851</xmin>
-      <ymin>-1204737.1088498558383435</ymin>
-      <xmax>3148958.85425051068887115</xmax>
-      <ymax>1896099.71726511162705719</ymax>
+      <xmin>-4143385.38098880089819431</xmin>
+      <ymin>-1475660.11449342174455523</ymin>
+      <xmax>3069939.64427113719284534</xmax>
+      <ymax>1625176.71162154572084546</ymax>
     </extent>
     <rotation>0</rotation>
     <destinationsrs>
@@ -154,9 +154,9 @@
         <legendlayerfile visible="1" isInOverview="0" layerid="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
       </filegroup>
     </legendlayer>
-    <legendlayer open="true" checked="Qt::Checked" name="ne_10m_rivers_lake_centerlines" drawingOrder="-1" showFeatureCount="0">
+    <legendlayer open="true" checked="Qt::Unchecked" name="ne_10m_rivers_lake_centerlines" drawingOrder="-1" showFeatureCount="0">
       <filegroup open="true" hidden="false">
-        <legendlayerfile visible="1" isInOverview="0" layerid="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
+        <legendlayerfile visible="0" isInOverview="0" layerid="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
       </filegroup>
     </legendlayer>
     <legendlayer open="false" checked="Qt::Checked" name="ne_10m_populated_places" drawingOrder="-1" showFeatureCount="0">
@@ -169,9 +169,9 @@
         <legendlayerfile visible="1" isInOverview="0" layerid="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
       </filegroup>
     </legendlayer>
-    <legendlayer open="false" checked="Qt::Checked" name="ne_10m_roads" drawingOrder="-1" showFeatureCount="0">
+    <legendlayer open="false" checked="Qt::Unchecked" name="ne_10m_roads" drawingOrder="-1" showFeatureCount="0">
       <filegroup open="false" hidden="false">
-        <legendlayerfile visible="1" isInOverview="0" layerid="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348"/>
+        <legendlayerfile visible="0" isInOverview="0" layerid="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348"/>
       </filegroup>
     </legendlayer>
     <legendlayer open="true" checked="Qt::Checked" name="ne_10m_lakes" drawingOrder="-1" showFeatureCount="0">
@@ -269,7 +269,7 @@
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>false</geographicflag>
+            <geographicflag>true</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -405,7 +405,7 @@
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -650,7 +650,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -733,7 +733,7 @@ def my_form_open(dialog, layer, feature):
               <Option name="properties" type="Map">
                 <Option name="Size" type="Map">
                   <Option value="true" name="active" type="bool"/>
-                  <Option value="min(max(($area ^ 0.5) /100000 * 2, 3), 12)" name="expression" type="QString"/>
+                  <Option value="min(max(($area ^ 0.5) /100000 * 2, 7), 15)" name="expression" type="QString"/>
                   <Option value="3" name="type" type="int"/>
                 </Option>
               </Option>
@@ -965,7 +965,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -1013,7 +1013,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="offset_unit" v="MM"/>
               <prop k="outline_color" v="35,35,35,255"/>
               <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width" v="0.5"/>
               <prop k="outline_width_unit" v="MM"/>
               <prop k="style" v="solid"/>
               <data_defined_properties>
@@ -1035,7 +1035,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="offset_unit" v="MM"/>
               <prop k="outline_color" v="35,35,35,255"/>
               <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width" v="0.5"/>
               <prop k="outline_width_unit" v="MM"/>
               <prop k="style" v="solid"/>
               <data_defined_properties>
@@ -1057,7 +1057,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="offset_unit" v="MM"/>
               <prop k="outline_color" v="35,35,35,255"/>
               <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width" v="0.5"/>
               <prop k="outline_width_unit" v="MM"/>
               <prop k="style" v="solid"/>
               <data_defined_properties>
@@ -1079,7 +1079,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="offset_unit" v="MM"/>
               <prop k="outline_color" v="35,35,35,255"/>
               <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width" v="0.5"/>
               <prop k="outline_width_unit" v="MM"/>
               <prop k="style" v="solid"/>
               <data_defined_properties>
@@ -1101,7 +1101,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="offset_unit" v="MM"/>
               <prop k="outline_color" v="35,35,35,255"/>
               <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width" v="0.5"/>
               <prop k="outline_width_unit" v="MM"/>
               <prop k="style" v="solid"/>
               <data_defined_properties>
@@ -1123,7 +1123,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="offset_unit" v="MM"/>
               <prop k="outline_color" v="35,35,35,255"/>
               <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width" v="0.5"/>
               <prop k="outline_width_unit" v="MM"/>
               <prop k="style" v="solid"/>
               <data_defined_properties>
@@ -1423,7 +1423,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -1898,7 +1898,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent/>
@@ -2507,7 +2507,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -2751,7 +2751,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -2994,7 +2994,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -4983,7 +4983,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -5659,7 +5659,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -6336,7 +6336,7 @@ def my_form_open(dialog, layer, feature):
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent>
@@ -6747,24 +6747,26 @@ def my_form_open(dialog, layer, feature):
   </properties>
   <visibility-presets>
     <visibility-preset has-expanded-info="1" name="Atlas" has-checked-group-info="1">
-      <layer visible="1" style="default" expanded="1" id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
-      <expanded-legend-nodes id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
-      <layer visible="1" style="default" expanded="1" id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
-      <expanded-legend-nodes id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
+      <layer visible="1" style="default" expanded="1" id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
+      <expanded-legend-nodes id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
+      <layer visible="1" style="default" expanded="1" id="counties_5ed9d7af_4563_4698_abbd_e71a28a969de"/>
+      <expanded-legend-nodes id="counties_5ed9d7af_4563_4698_abbd_e71a28a969de"/>
+      <layer visible="1" style="default" expanded="1" id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
+      <expanded-legend-nodes id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
       <layer visible="1" style="default" expanded="0" id="ne_10m_populated_places_eadd5df5_d313_4605_a835_801a9f871519"/>
       <expanded-legend-nodes id="ne_10m_populated_places_eadd5df5_d313_4605_a835_801a9f871519">
         <expanded-legend-node id="{dbb9ae29-5b30-47e5-a48c-bb56445ed690}"/>
         <expanded-legend-node id="{09ae37c9-2cc4-49e4-9e5f-f470687bd3b8}"/>
         <expanded-legend-node id="{40dab26f-5e5b-4597-9f61-866f50abe1c9}"/>
       </expanded-legend-nodes>
-      <layer visible="1" style="default" expanded="1" id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
-      <expanded-legend-nodes id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
       <layer visible="1" style="default" expanded="0" id="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348"/>
       <expanded-legend-nodes id="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348"/>
-      <layer visible="1" style="default" expanded="1" id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
-      <expanded-legend-nodes id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
       <layer visible="1" style="default" expanded="1" id="ne_10m_ocean_b46737f8_8ae0_458d_b926_4e7605a2ffb1"/>
       <expanded-legend-nodes id="ne_10m_ocean_b46737f8_8ae0_458d_b926_4e7605a2ffb1"/>
+      <layer visible="1" style="default" expanded="1" id="ne_10m_land_bcbd445c_69ac_46c0_86c2_d440fe34ba09"/>
+      <expanded-legend-nodes id="ne_10m_land_bcbd445c_69ac_46c0_86c2_d440fe34ba09"/>
+      <layer visible="1" style="default" expanded="1" id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
+      <expanded-legend-nodes id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
       <layer visible="1" style="default" expanded="0" id="counties_da36db4c_f1a9_4154_89f2_c0e4090cf75b"/>
       <expanded-legend-nodes id="counties_da36db4c_f1a9_4154_89f2_c0e4090cf75b">
         <expanded-legend-node id="0"/>
@@ -6774,18 +6776,14 @@ def my_form_open(dialog, layer, feature):
         <expanded-legend-node id="3"/>
         <expanded-legend-node id="4"/>
       </expanded-legend-nodes>
-      <layer visible="1" style="default" expanded="1" id="counties_5ed9d7af_4563_4698_abbd_e71a28a969de"/>
-      <expanded-legend-nodes id="counties_5ed9d7af_4563_4698_abbd_e71a28a969de"/>
-      <layer visible="1" style="default" expanded="1" id="ne_10m_land_bcbd445c_69ac_46c0_86c2_d440fe34ba09"/>
-      <expanded-legend-nodes id="ne_10m_land_bcbd445c_69ac_46c0_86c2_d440fe34ba09"/>
+      <layer visible="1" style="default" expanded="1" id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
+      <expanded-legend-nodes id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
       <checked-group-nodes/>
       <expanded-group-nodes/>
     </visibility-preset>
     <visibility-preset has-expanded-info="1" name="Politics" has-checked-group-info="1">
       <layer visible="1" style="default" expanded="1" id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
       <expanded-legend-nodes id="capitol_08625312_94ad_48cd_b0e0_44c983474a14"/>
-      <layer visible="1" style="default" expanded="1" id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
-      <expanded-legend-nodes id="ne_10m_rivers_lake_centerlines_276d1b9a_955d_427e_9194_215670c2937c"/>
       <layer visible="1" style="default" expanded="0" id="ne_10m_populated_places_eadd5df5_d313_4605_a835_801a9f871519"/>
       <expanded-legend-nodes id="ne_10m_populated_places_eadd5df5_d313_4605_a835_801a9f871519">
         <expanded-legend-node id="{dbb9ae29-5b30-47e5-a48c-bb56445ed690}"/>
@@ -6794,8 +6792,6 @@ def my_form_open(dialog, layer, feature):
       </expanded-legend-nodes>
       <layer visible="1" style="default" expanded="1" id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
       <expanded-legend-nodes id="ne_10m_urban_areas_5b446ada_f206_4400_8bd7_84873a3ba6e4"/>
-      <layer visible="1" style="default" expanded="0" id="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348"/>
-      <expanded-legend-nodes id="ne_10m_roads_54c6ff8d_fe6e_4ebd_9db8_21d9ecf6f348"/>
       <layer visible="1" style="default" expanded="1" id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
       <expanded-legend-nodes id="ne_10m_lakes_97e1fa21_175b_4012_8260_5becf7592861"/>
       <layer visible="1" style="default" expanded="1" id="ne_10m_ocean_b46737f8_8ae0_458d_b926_4e7605a2ffb1"/>

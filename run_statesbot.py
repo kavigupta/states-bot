@@ -61,7 +61,7 @@ def render_map(seed):
                     "/usr/bin/python3",
                     "export.py",
                     map_object["title"],
-                    path[size],
+                    path[which, size],
                     map_object["version"],
                     str(dpi),
                     which,

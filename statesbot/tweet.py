@@ -42,4 +42,3 @@ def tweet_map(title, extra_title, images):
         status="Political Version " + extra_title % images["politics", "large"],
     )
     print("Tweeted reply")
-    return x
