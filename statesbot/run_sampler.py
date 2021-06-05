@@ -15,7 +15,13 @@ def sample_guaranteed(data, *, rng_seed, n_states, pbar, bar=2.5):
         assign = Assignment.from_county_to_state(
             data,
             meta,
-            sample(data, rng_seed=rng.choice(2 ** 32), n_states=n_states, pbar=pbar, filter_bar=bar*2),
+            sample(
+                data,
+                rng_seed=rng.choice(2 ** 32),
+                n_states=n_states,
+                pbar=pbar,
+                filter_bar=bar * 3,
+            ),
         )
         frac = assign.aggregated_stats.max() / assign.aggregated_stats.min()
         if frac < bar:
@@ -32,7 +38,7 @@ def sample(data, *, rng_seed, n_states, pbar, filter_bar):
     assign = sample_initial(data, meta, rng, filter_bar=filter_bar)
 
     for idx in pbar(count()):
-        if not assign.fix_border():
+        if not assign.fix_border(idx):
             break
         if idx % 10 == 0:
             for state_idx in range(assign.meta.count):

@@ -11,7 +11,9 @@ from statesbot.tweet import tweet_map, current_tweet_id
 
 
 def get_n_states(seed):
-    return [48, 24, 12][(seed - 1) % 3]
+    if seed % 3 == 1:
+        return 50
+    return np.random.RandomState(seed).randint(40) + 10
 
 
 def guarantee_path(seed):

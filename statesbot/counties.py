@@ -55,18 +55,23 @@ class Countylike:
 
 
 def get_counties():
-    geojson = PlotlyGeoJSON().get()
+    geojson = PlotlyGeoJSON(
+        alaska_handler=e.alaska.AT_LARGE, contains_kalawao=False
+    ).get()
     city_map = cities_dataset()
-    data = Census2010Population(e.alaska.FIPS).get()
+    data = Census2010Population(e.alaska.AT_LARGE).get()
     pop_by_fips = dict(zip(data.FIPS, data.CENSUS2010POP))
     data_2020 = pd.read_csv("csvs/2020_demographics_votes_fips.csv")
     dem_2020_by_fips = {
         f"{k:05d}": v for k, v in zip(data_2020.FIPS, data_2020["Biden 2020 Margin"])
     }
+    dem_2020_by_fips["02AL"] = 0.5283 - 0.4277
+    for pr in pop_by_fips:
+        if pr.startswith("72"):
+            dem_2020_by_fips[pr] = 0.0733  # puerto rico
     return [
         Countylike.of(f, city_map, pop_by_fips, dem_2020_by_fips)
         for f in geojson["features"]
-        if f["id"][:2] not in {"72", "15", "02"} and f["id"] not in {"25019", "53055"}
     ]
 
 

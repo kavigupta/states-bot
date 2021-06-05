@@ -17,12 +17,23 @@ SPECIAL_EDGES = [
     ("36103", "09011"),
     ("26097", "26047"),  # michigan's parts connected
     ("51131", "51810"),  # virginia beach
-    ("51131", "51710"),
+    ("25019", "25007"),  # Nantucket Island
+    ("25019", "25001"),
+    ("53055", "53057"),  # san juan island
+    ("53055", "53073"),
+    ("06073", "15001"),  # San Diego --> Hawaii
+    ("15001", "15009"),  # Hawaii --> Maui
+    ("15009", "15003"),  # Maui --> Honolulu
+    ("15003", "15007"),  # Honolulu --> Kauai
+    ("53073", "02AL"),  # Whatcom --> Alaska
+    ("12086", "72005"),  # Miami-Dade --> Auguadilla, PR
+    ("72147", "72037"),  # Vieques island to Ceiba
+    ("72049", "72037"),  # Culebra island to Ceiba
 ]
 
 
 class Data:
-    version = 1.6
+    version = 1.11
 
     def __init__(self):
         self.countylikes = get_countylikes()

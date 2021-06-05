@@ -67,7 +67,7 @@ class Assignment:
                     big_graph.add_edge(c1, c2)
         return big_graph
 
-    def attempt_fix(self, bigger, smaller):
+    def attempt_fix(self, bigger, smaller, current_iter):
         border_counties = {
             x
             for x in self.state_to_counties[bigger]
@@ -94,7 +94,12 @@ class Assignment:
 
         counties = sorted(border_counties, key=transferability, reverse=True)
         for county in counties:
-            if transferability(county) < 0.5:
+            tr = transferability(county)
+            if current_iter < 300 and tr < 0.5:
+                continue
+            if tr < 0.25:
+                continue
+            if tr < 0.75 and bigger_stat / smaller_stat < 1.25:
                 continue
             if county in nx.algorithms.components.articulation_points(big_graph):
                 continue
@@ -106,9 +111,9 @@ class Assignment:
                 progress = True
         return progress
 
-    def fix_border(self):
+    def fix_border(self, itr):
         for bigger, smaller in self.optimal_border_transitions():
-            if self.attempt_fix(bigger, smaller):
+            if self.attempt_fix(bigger, smaller, itr):
                 return True
         return False
 
