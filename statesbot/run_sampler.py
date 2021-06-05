@@ -15,7 +15,7 @@ def sample_guaranteed(data, *, rng_seed, n_states, pbar, bar=2.5):
         assign = Assignment.from_county_to_state(
             data,
             meta,
-            sample(data, rng_seed=rng.choice(2 ** 32), n_states=n_states, pbar=pbar),
+            sample(data, rng_seed=rng.choice(2 ** 32), n_states=n_states, pbar=pbar, filter_bar=bar*2),
         )
         frac = assign.aggregated_stats.max() / assign.aggregated_stats.min()
         if frac < bar:
@@ -26,13 +26,11 @@ def sample_guaranteed(data, *, rng_seed, n_states, pbar, bar=2.5):
     "statesbot/run_sampler/sample",
     key_function=dict(data=lambda data: data.version, pbar=None),
 )
-def sample(data, *, rng_seed, n_states, pbar):
+def sample(data, *, rng_seed, n_states, pbar, filter_bar):
     meta = Metadata(n_states, data.pops, data, data.centers)
     rng = np.random.RandomState(rng_seed)
-    best = sample_initial(meta, rng)
-    assign = Assignment.from_county_to_state(
-        data, meta, best.county_to_state_no_nan.astype(int)
-    )
+    assign = sample_initial(data, meta, rng, filter_bar=filter_bar)
+
     for idx in pbar(count()):
         if not assign.fix_border():
             break
@@ -46,8 +44,15 @@ def sample(data, *, rng_seed, n_states, pbar):
     return assign.county_to_state
 
 
-def sample_initial(meta, rng):
+def sample_initial(data, meta, rng, filter_bar):
     while True:
         result = sample_states(meta, rng.randint(2 ** 32))
-        if not np.isnan(result.county_to_state).any():
-            return result
+        if np.isnan(result.county_to_state).any():
+            continue
+        print("VALID")
+        assign = Assignment.from_county_to_state(
+            data, meta, result.county_to_state_no_nan.astype(int)
+        )
+        if assign.aggregated_stats.max() / assign.aggregated_stats.min() > filter_bar:
+            continue
+        return assign
