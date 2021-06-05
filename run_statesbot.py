@@ -42,7 +42,6 @@ def generate_map(seed):
 
 
 def render_map(seed):
-    subprocess.check_call(["git", "pull", "origin", "master"])
     data = get_data()
     with open(generate_map(seed), "rb") as f:
         map_object = pickle.load(f)
@@ -68,6 +67,11 @@ def render_map(seed):
                     *(str(x) for x in map_object["map"].statistics())
                 ]
             )
+    return map_object, path
+def run_bot(seed):
+
+    map_object, path = render_map(seed)
+
     subprocess.check_call(["git", "add", "maps"])
     subprocess.call(["git", "commit", "-m", f"add images for seed={seed}"])
     subprocess.check_call(["git", "push", "origin", "master"])
@@ -77,5 +81,21 @@ def render_map(seed):
         path,
     )
 
+def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--render-map-only", action="store_true")
+
+    args = parser.parse_args()
+
+    seed = args.seed
+    if seed is None:
+        seed = current_tweet_id()
+    if args.render_map_only:
+        render_map(seed)
+    else:
+        run_bot(seed)
+
 if __name__ == "__main__":
-    render_map(current_tweet_id())
+    main()
