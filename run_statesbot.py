@@ -4,6 +4,8 @@ import tqdm
 import pickle
 import functools
 
+import numpy as np
+
 from statesbot.data import Data
 from statesbot.version import version
 from statesbot.run_sampler import sample_guaranteed
