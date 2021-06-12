@@ -147,14 +147,12 @@ class Assignment:
                 if y in self.state_to_counties[state_idx]
             )
             for x in state
+            if self.meta.stat[x] / self.meta.stat[state].sum() <= 0.3
         }
-
-        idx_farthest = min(state, key=coupling_by_county.get)
-
-        contribution = self.meta.stat[idx_farthest] / self.meta.stat[state].sum()
-
-        if contribution > 0.3:
+        if not coupling_by_county:
             return
+
+        idx_farthest = min(coupling_by_county, key=coupling_by_county.get)
 
         if coupling_by_county[idx_farthest] > 0.3:
             return
