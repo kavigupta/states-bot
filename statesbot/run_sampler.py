@@ -59,6 +59,13 @@ def sample_initial(data, meta, rng, filter_bar):
         assign = Assignment.from_county_to_state(
             data, meta, result.county_to_state_no_nan.astype(int)
         )
+        for _ in range(assign.meta.count * 2):
+            if not assign.quickfix(rng):
+                break
+            for state_idx in range(assign.meta.count):
+                while assign.remove_farthest(state_idx, rng):
+                    pass
+        print(assign.aggregated_stats.max() / assign.aggregated_stats.min())
         if assign.aggregated_stats.max() / assign.aggregated_stats.min() > filter_bar:
             continue
         return assign

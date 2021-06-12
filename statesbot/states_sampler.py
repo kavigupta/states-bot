@@ -85,7 +85,7 @@ class States:
         valid_neighbors = self.valid_neighbors(smallest)
         if not valid_neighbors:
             if not self.state_neighbor_counties[smallest]:
-                if self.state_pops[smallest] / self.target < 1 / 3:
+                if self.state_pops[smallest] / self.target < 1 / 6:
                     return True  # fail fast
                 self.given_up.add(smallest)
                 return

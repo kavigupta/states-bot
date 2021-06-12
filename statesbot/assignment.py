@@ -24,6 +24,56 @@ class Assignment:
         self.state_to_counties[current_state].remove(county)
         self.state_to_counties[state].add(county)
 
+    def quickfix(self, rng):
+        agstats = self.aggregated_stats
+        ratio = agstats.max() / agstats.min()
+        if ratio < 3:
+            return False
+        biggest, smallest = agstats.argmax(), agstats.argmin()
+        print(ratio, biggest, smallest)
+        while self.state_to_counties[smallest]:
+            for county in list(self.state_to_counties[smallest]):
+                neighbors = {
+                    self.county_to_state[c] for c in self.meta.graph.neighbors[county]
+                } - {smallest}
+                if not neighbors:
+                    continue
+                neighbor = min(neighbors, key=lambda x: agstats[x])
+                self.assign(county, neighbor)
+        locs = self.meta.centers[list(self.state_to_counties[biggest])]
+        first, second = np.unravel_index(
+            ((locs - locs[:, None]) ** 2).sum(-1).argmax(),
+            (locs.shape[0], locs.shape[0]),
+        )
+        ardir = (locs[second] - locs[first]) * rng.choice([1, -1])
+        gap = self.aggregated_stats[biggest]
+        while True:
+            for county in sorted(
+                self.state_to_counties[biggest],
+                key=lambda i: self.meta.centers[i] @ ardir,
+            ):
+                if (
+                    self.state_to_counties[smallest]
+                    and (
+                        self.state_to_counties[smallest]
+                        & self.meta.graph.neighbors[county]
+                    )
+                    == set()
+                ):
+                    continue
+                if county in nx.algorithms.components.articulation_points(
+                    self.graph_for_state(biggest)
+                ):
+                    continue
+                if self.meta.stat[county] * 2 > gap:
+                    continue
+                gap -= self.meta.stat[county] * 2
+                self.assign(county, smallest)
+                break
+            else:
+                break
+        return True
+
     @property
     def state_lists(self):
         return [list(x) for _, x in sorted(self.state_to_counties.items())]
