@@ -11,7 +11,11 @@ from permacache import permacache, stable_hash
 
 from .counties import get_counties, Countylike
 
-replacements = {"06037": "subcounty-geojsons/LA_County_City_Boundaries.shp"}
+replacements = {
+    "06037": "subcounty-geojsons/LA_County_City_Boundaries.shp",
+    "06065": "subcounty-geojsons/riverside/CA_Counties_TIGER2016.shp",
+    "06071": "subcounty-geojsons/san-bernardino/CA_Counties_TIGER2016.shp",
+}
 
 
 @lru_cache(None)
@@ -26,7 +30,9 @@ def get_countylikes():
         if c.ident not in replacements:
             result.append(c)
             continue
-        result += get_subset_county(c, geopandas.read_file(replacements[c.ident]))
+        result += get_subset_county(
+            c, geopandas.read_file(replacements[c.ident]).to_crs(epsg=4326)
+        )
     return result
 
 
