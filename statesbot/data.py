@@ -152,7 +152,7 @@ def all_edges(countylikes, **kwargs):
 
 
 def edges(countylikes, i, centroid_distance=5, actual_distance=1e-2):
-    if countylikes[i].ident not in ISLANDS:
+    if countylikes[i].ident in ISLANDS:
         return set()
     distances = np.array(
         [

@@ -1,11 +1,23 @@
 from collections import defaultdict
+from functools import lru_cache
+import json
+
+import numpy as np
 import geopandas
 import shapely
 from shapely.ops import unary_union
 
+from permacache import permacache, stable_hash
+
 from .counties import get_counties, Countylike
 
 replacements = {"06037": "subcounty-geojsons/LA_County_City_Boundaries.shp"}
+
+
+@lru_cache(None)
+def precincts():
+    with open("precinctdata/precinctdata.json") as f:
+        return json.load(f)
 
 
 def get_countylikes():
@@ -14,43 +26,22 @@ def get_countylikes():
         if c.ident not in replacements:
             result.append(c)
             continue
-        result += get_subset_county(c, replacements[c.ident])
+        result += get_subset_county(c, geopandas.read_file(replacements[c.ident]))
     return result
 
 
-def partition(feat, shape_path):
-    df = geopandas.read_file(shape_path)
-    df = df[df.FEAT_TYPE == "Land"]
-    subcounty_pops = defaultdict(float)
-    subcounty_areas = defaultdict(float)
-    subcounty_cities = defaultdict(list)
+def partition(feat, shapefile_df):
     subcounty_polys = defaultdict(list)
-    seen_cities = set()
-    for _, row in df.iterrows():
+    for _, row in shapefile_df.iterrows():
         subcounty = row["SUBCOUNTY"]
         if subcounty is None:
             continue
-        subcounty_areas[subcounty] += row.ShapeSTAre
         subcounty_polys[subcounty] += (
             [row.geometry]
             if isinstance(row.geometry, shapely.geometry.polygon.Polygon)
             else row.geometry
         )
-        cities = [x for x in feat.cities if x["name"] == row.CITY_NAME]
-        if not cities:
-            continue
-        assert len(cities) == 1, row.CITY_NAME
-        [city] = cities
-        subcounty_cities[subcounty].append(city)
-        if row.CITY_NAME in seen_cities and row.CITY_NAME != "Unincorporated":
-            continue
-        seen_cities.add(row.CITY_NAME)
-        subcounty_pops[subcounty] += city["population"]
-    area_ratio = feat.area / sum(subcounty_areas.values())
-    pop_ratio = feat.pop / sum(subcounty_pops.values())
-    for k in subcounty_pops:
-        subcounty_areas[k] *= area_ratio
-        subcounty_pops[k] *= pop_ratio
+
     subcounty_polys = {
         k: close_holes(unary_union(subcounty_polys[k])).simplify(0.01)
         for k in subcounty_polys
@@ -63,31 +54,72 @@ def partition(feat, shape_path):
         return shapely.ops.unary_union(shapely.ops.snap(x, y, tol))
 
     snapped = {}
-    for k in sorted(subcounty_polys, key=lambda x: -subcounty_areas[x]):
-        updated = snap(subcounty_polys[k], feat_poly, 0.05)
+    for k in sorted(subcounty_polys, key=lambda x: -subcounty_polys[x].area):
+        updated = snap(subcounty_polys[k], feat_poly, 0.04)
         for k2 in snapped:
-            updated = snap(updated, snapped[k2], 0.05)
+            updated = snap(updated, snapped[k2], 0.04)
         snapped[k] = updated
-    return subcounty_cities, subcounty_areas, subcounty_pops, snapped
+    return snapped
 
 
-def get_subset_county(feat, shape_path):
-    subcounty_cities, subcounty_areas, subcounty_pops, subcounty_polys = partition(
-        feat, shape_path
+@permacache(
+    "statesbot/countylikes/get_subset_county",
+    key_function=dict(
+        feat=stable_hash,
+        shape_df=lambda x: stable_hash(np.array(x.applymap(str)).tolist()),
+    ),
+)
+def get_subset_county(feat, shape_df):
+    subcounty_polys = partition(feat, shape_df)
+    cities = classify_elements(
+        subcounty_polys,
+        feat.cities,
+        lambda x: shapely.geometry.Point(x["longitude"], x["latitude"]),
     )
+    precincts_by = classify_elements(
+        subcounty_polys,
+        [p for p in precincts() if p["GEOID"].startswith(feat.ident)],
+        lambda x: shapely.geometry.Point(*x["centroid"]),
+    )
+    aggd_votes = {
+        k: np.array(
+            [
+                [x["votes_dem"], x["votes_rep"], x["votes_total"]]
+                for x in precincts_by[k]
+            ]
+        ).sum(0)
+        for k in subcounty_polys
+    }
     subcounties = []
-    for subcounty in subcounty_pops:
+    for subcounty in subcounty_polys:
         subcounties.append(
             Countylike(
                 ident=feat.ident + "." + subcounty,
-                cities=subcounty_cities[subcounty],
-                area=subcounty_areas[subcounty],
-                pop=subcounty_pops[subcounty],
+                cities=cities[subcounty],
+                area=subcounty_polys[subcounty].area
+                / sum(v.area for v in subcounty_polys.values())
+                * feat.area,
+                pop=aggd_votes[subcounty][-1]
+                / sum(v[-1] for v in aggd_votes.values())
+                * feat.pop,
                 coordinates=coordinates_for(subcounty_polys[subcounty]),
-                dem_2020=feat.dem_2020,
+                dem_2020=(aggd_votes[subcounty][0] - aggd_votes[subcounty][1])
+                / aggd_votes[subcounty][2],
             )
         )
     return subcounties
+
+
+def classify_elements(polys, elements, coord_fn):
+    elements_each = defaultdict(list)
+    for element in elements:
+        for poly in polys:
+            if polys[poly].contains(coord_fn(element)):
+                elements_each[poly].append(element)
+                break
+        else:
+            print("Could not classify", element)
+    return elements_each
 
 
 def close_holes(poly):
