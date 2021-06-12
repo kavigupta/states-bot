@@ -36,7 +36,7 @@ ISLANDS = {"02AL"}
 
 
 class Data:
-    version = 1.11
+    version = 1.12
 
     def __init__(self):
         self.countylikes = get_countylikes()
@@ -162,13 +162,13 @@ def edges(countylikes, i, centroid_distance=5, actual_distance=1e-2):
                 .flatten(),
                 1,
             )[1]
-            if (
+            if c.ident not in ISLANDS
+            and (
                 np.abs(c.flat_coords.mean(0) - countylikes[i].flat_coords.mean(0))
                 < centroid_distance
             ).all()
             else float("inf")
             for c in countylikes
-            if c.ident not in ISLANDS
         ]
     )
     [within_eps] = np.where(distances <= actual_distance)
