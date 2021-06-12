@@ -20,7 +20,11 @@ project_instance = QgsProject.instance()
 project_instance.setFileName(project_path)
 project_instance.read()
 project_instance.setTitle(title)
-project_instance.setCustomVariables(dict(statesbotversion=version, demec=demec, gopec=gopec, demsen=demsen, gopsen=gopsen))
+project_instance.setCustomVariables(
+    dict(
+        statesbotversion=version, demec=demec, gopec=gopec, demsen=demsen, gopsen=gopsen
+    )
+)
 
 manager = QgsProject.instance().layoutManager()
 layout = manager.layoutByName(layout_name)

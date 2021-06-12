@@ -26,9 +26,11 @@ def guarantee_path(seed):
         pass
     return path
 
+
 @functools.lru_cache(None)
 def get_data():
     return Data()
+
 
 def generate_map(seed):
     path = guarantee_path(seed)
@@ -68,10 +70,12 @@ def render_map(seed):
                     map_object["version"],
                     str(dpi),
                     which,
-                    *(str(x) for x in map_object["map"].statistics())
+                    *(str(x) for x in map_object["map"].statistics()),
                 ]
             )
     return map_object, path
+
+
 def run_bot(seed):
 
     map_object, path = render_map(seed)
@@ -85,8 +89,10 @@ def run_bot(seed):
         path,
     )
 
+
 def main():
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--render-map-only", action="store_true")
@@ -100,6 +106,7 @@ def main():
         render_map(seed)
     else:
         run_bot(seed)
+
 
 if __name__ == "__main__":
     main()
