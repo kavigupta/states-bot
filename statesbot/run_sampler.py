@@ -37,7 +37,7 @@ def sample(data, *, rng_seed, n_states, pbar, filter_bar):
     rng = np.random.RandomState(rng_seed)
     assign = sample_initial(data, meta, rng, filter_bar=filter_bar)
 
-    for idx in pbar(count()):
+    for idx in pbar(range(max(1000, n_states * 40))):
         if not assign.fix_border(idx):
             break
         if idx % 10 == 0:
