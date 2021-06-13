@@ -68,7 +68,8 @@ def get_counties():
     dem_2020_by_fips["02AL"] = 0.5283 - 0.4277
     for pr in pop_by_fips:
         if pr.startswith("72"):
-            dem_2020_by_fips[pr] = 0.0733  # puerto rico
+            # https://twitter.com/SageOfTime1/status/1382485916095283203?s=20
+            dem_2020_by_fips[pr] = 0.618 - 0.375
     return [
         Countylike.of(f, city_map, pop_by_fips, dem_2020_by_fips)
         for f in geojson["features"]
