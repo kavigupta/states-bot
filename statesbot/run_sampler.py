@@ -8,7 +8,7 @@ from .assignment import Assignment
 from permacache import permacache
 
 
-def sample_guaranteed(data, *, rng_seed, n_states, pbar, bar=2.5):
+def sample_guaranteed(data, *, rng_seed, n_states, pbar, bar=1.8):
     meta = Metadata(n_states, data.pops, data, data.centers)
     rng = np.random.RandomState(rng_seed)
     while True:
