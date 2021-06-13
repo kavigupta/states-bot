@@ -36,7 +36,7 @@ ISLANDS = {"02AL"}
 
 
 class Data:
-    version = 1.12
+    version = 1.13
 
     def __init__(self):
         self.countylikes = get_countylikes()
@@ -146,7 +146,7 @@ class Metadata:
         return any(x in a for y in b for x in self.graph.neighbors[y])
 
 
-@permacache("statesbot/data/all_edges", key_function=dict(all_edges=stable_hash))
+@permacache("statesbot/data/all_edges_2", key_function=dict(all_edges=stable_hash))
 def all_edges(countylikes, **kwargs):
     return [edges(countylikes, i, **kwargs) for i in tqdm.trange(len(countylikes))]
 
@@ -154,25 +154,24 @@ def all_edges(countylikes, **kwargs):
 def edges(countylikes, i, centroid_distance=5, actual_distance=1e-2):
     if countylikes[i].ident in ISLANDS:
         return set()
-    distances = np.array(
-        [
-            np.partition(
-                np.abs(countylikes[i].flat_coords[:, None] - c.flat_coords[None])
-                .sum(-1)
-                .flatten(),
-                1,
-            )[1]
-            if c.ident not in ISLANDS
-            and (
-                np.abs(c.flat_coords.mean(0) - countylikes[i].flat_coords.mean(0))
-                < centroid_distance
-            ).all()
-            else float("inf")
-            for c in countylikes
-        ]
-    )
-    [within_eps] = np.where(distances <= actual_distance)
-    return set(within_eps)
+    results = set()
+    for j, c in enumerate(countylikes):
+        if c.ident in ISLANDS:
+            continue
+        centroid_distance_this = np.abs(
+            c.flat_coords.mean(0) - countylikes[i].flat_coords.mean(0)
+        ).sum()
+        if centroid_distance_this > centroid_distance:
+            continue
+        distance = np.partition(
+            np.abs(countylikes[i].flat_coords[:, None] - c.flat_coords[None])
+            .sum(-1)
+            .flatten(),
+            2,
+        )[2]
+        if distance <= actual_distance:
+            results.add(j)
+    return results
 
 
 def weights(countylikes, neighbors):
