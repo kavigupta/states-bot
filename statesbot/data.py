@@ -7,6 +7,7 @@ import attr
 from permacache import permacache, stable_hash
 from methodtools import lru_cache
 
+from .counties import get_counties
 from .countylikes import get_countylikes
 
 SPECIAL_EDGES = [
@@ -38,8 +39,8 @@ ISLANDS = {"02AL"}
 class Data:
     version = 1.13
 
-    def __init__(self):
-        self.countylikes = get_countylikes()
+    def __init__(self, use_countylikes=True):
+        self.countylikes = get_countylikes() if use_countylikes else get_counties()
         self.ident_back = {x.ident: i for i, x in enumerate(self.countylikes)}
         self.pops = np.array([f.pop for f in self.countylikes])
 
