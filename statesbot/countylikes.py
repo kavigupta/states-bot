@@ -12,7 +12,7 @@ from permacache import permacache, stable_hash
 from .counties import get_counties, Countylike
 
 replacements = {
-    "06037": "subcounty-geojsons/LA_County_City_Boundaries.shp",
+    "06037": "subcounty-geojsons/los-angeles/counties.shp",
     "06065": "subcounty-geojsons/riverside/CA_Counties_TIGER2016.shp",
     "06071": "subcounty-geojsons/san-bernardino/CA_Counties_TIGER2016.shp",
 }
