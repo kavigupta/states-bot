@@ -15,6 +15,7 @@ replacements = {
     "06037": "subcounty-geojsons/los-angeles/counties.shp",
     "06065": "subcounty-geojsons/riverside/CA_Counties_TIGER2016.shp",
     "06071": "subcounty-geojsons/san-bernardino/CA_Counties_TIGER2016.shp",
+    "12086": "subcounty-geojsons/miami-dade/counties.shp",
 }
 
 

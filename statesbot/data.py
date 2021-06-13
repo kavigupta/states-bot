@@ -27,7 +27,7 @@ SPECIAL_EDGES = [
     ("15009", "15003"),  # Maui --> Honolulu
     ("15003", "15007"),  # Honolulu --> Kauai
     ("53073", "02AL"),  # Whatcom --> Alaska
-    ("12086", "72005"),  # Miami-Dade --> Auguadilla, PR
+    ("12086.Homestead", "72005"),  # Miami-Dade --> Auguadilla, PR
     ("72147", "72037"),  # Vieques island to Ceiba
     ("72049", "72037"),  # Culebra island to Ceiba
 ]
