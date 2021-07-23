@@ -113,13 +113,16 @@ class Data:
 
 
 def combine_names(a, b):
+    vowels = set("aeiouy")
     common_letters = set(a[len(a) // 2 :]) & set(b[: len(b) // 2])
     if not common_letters:
-        while not b[0].lower() in "aeiou":
+        if set(b) & vowels:
+            while not b[0].lower() in vowels:
+                b = b[1:]
             b = b[1:]
-        b = b[1:]
-        while not a[-1].lower() in "aeiou":
-            a = a[:-1]
+        if set(a) & vowels:
+            while not a[-1].lower() in vowels:
+                a = a[:-1]
         return a + b
     best_indices = float("inf"), float("inf")
     for c in common_letters:
