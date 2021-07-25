@@ -14,7 +14,13 @@ USER_ID = "bot_states"
 
 
 def get_api():
-    my_auth = tweepy.OAuthHandler(my_consumer_key, my_consumer_secret)
+    my_auth = tweepy.OAuthHandler(
+        my_consumer_key,
+        my_consumer_secret,
+        retry_count=10,
+        retry_delay=5,
+        retry_errors=set([503]),
+    )
     my_auth.set_access_token(my_access_token, my_access_token_secret)
     return tweepy.API(my_auth)
 
