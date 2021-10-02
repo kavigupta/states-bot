@@ -101,7 +101,7 @@ class Data:
         distances = np.array(distances) / max(distances)
         next_city = max(
             zip(cities_for_state, distances),
-            key=lambda x: x[0]["population"] / biggest_city["population"] + x[1],
+            key=lambda x: x[1],
         )[0]
         return combine_names(biggest_city["name"], next_city["name"])
 
