@@ -56,7 +56,7 @@ def render_map(seed):
     map_object["map"].ship()
     path = {}
     for which in "atlas", "politics":
-        for size, dpi in ("small", 130), ("large", 340):
+        for size, dpi in ("small", 175), ("large", 340):
             print(which, size, dpi)
             path[which, size] = f"maps/{seed}/states_bot_{seed:02d}_{size}_{which}.png"
             if os.path.exists(path[which, size]):
