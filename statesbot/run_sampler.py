@@ -57,7 +57,7 @@ def sample_initial(data, meta, rng, filter_bar):
             continue
         print("VALID")
         assign = Assignment.from_county_to_state(
-            data, meta, result.county_to_state_no_nan.astype(int)
+            data, meta, result.county_to_state.astype(int)
         )
         for _ in range(assign.meta.count * 2):
             if not assign.quickfix(rng):

@@ -15,10 +15,6 @@ class States:
     given_up = attr.ib()
     county_to_state = attr.ib()
 
-    @property
-    def county_to_state_no_nan(self):
-        return np.nan_to_num(self.county_to_state)
-
     @staticmethod
     def setup(meta):
         return States(
