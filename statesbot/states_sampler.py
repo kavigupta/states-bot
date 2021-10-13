@@ -110,7 +110,7 @@ def sample_states(meta, seed):
     states = States.setup(meta)
     rng = np.random.RandomState(seed)
     states.initial_assign(rng)
-    for _ in range(3500):
+    while True:
         if states.assign_to_smallest():
             break
     print(np.max(states.state_pops) / np.min(states.state_pops))
