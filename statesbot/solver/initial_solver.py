@@ -3,12 +3,12 @@ import numpy as np
 from .error_code import SolverFailure
 
 
-def initially_solve(graph, labels, rng_seed, filter_bar, **kwargs):
+def initially_solve(graph, labels, rng_seed, config):
     rng = np.random.RandomState(rng_seed)
     while True:
         try:
             indices, out = _initially_solve(
-                graph, labels, rng.choice(2 ** 32), graph.vertex_indices, **kwargs
+                graph, labels, rng.choice(2 ** 32), graph.vertex_indices, config=config
             )
             result = np.empty(indices.size, dtype=out.dtype)
             result[indices] = out
@@ -16,12 +16,13 @@ def initially_solve(graph, labels, rng_seed, filter_bar, **kwargs):
             continue
         each = [graph.total_eqstat(np.where(result == label)[0]) for label in labels]
         ratio = max(each) / min(each)
-        print(ratio)
-        if ratio < filter_bar:
+        print("initial", ratio)
+        if ratio < config.initial_sampler_equality_ratio_limit:
+            print("valid")
             return result
 
 
-def _initially_solve(graph, labels, rng_seed, indices, direction_choices=5):
+def _initially_solve(graph, labels, rng_seed, indices, config):
     indices = np.array(indices)
     if len(labels) > len(indices):
         raise SolverFailure
@@ -31,7 +32,9 @@ def _initially_solve(graph, labels, rng_seed, indices, direction_choices=5):
     split = len(labels) // 2
 
     rng = np.random.RandomState(rng_seed)
-    direction = rng.randn(graph.euclidean.shape[-1], direction_choices)
+    direction = rng.randn(
+        graph.euclidean.shape[-1], config.initial_sampler_direction_choices
+    )
     in_direction = graph.euclidean[indices] @ direction
     true_distances = (
         (
@@ -69,10 +72,10 @@ def _initially_solve(graph, labels, rng_seed, indices, direction_choices=5):
     labels_left, labels_right = labels[:split], labels[split:]
 
     indices_left, out_left = _initially_solve(
-        graph, labels_left, rng.choice(2 ** 32), indices_left
+        graph, labels_left, rng.choice(2 ** 32), indices_left, config
     )
     indices_right, out_right = _initially_solve(
-        graph, labels_right, rng.choice(2 ** 32), indices_right
+        graph, labels_right, rng.choice(2 ** 32), indices_right, config
     )
 
     return np.concatenate([indices_left, indices_right]), np.concatenate(

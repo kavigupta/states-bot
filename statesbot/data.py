@@ -179,12 +179,6 @@ def edges(countylikes, i, centroid_distance=5, actual_distance=1e-2):
 
 
 def weights(countylikes, neighbors):
-    perimiters = {}
-    for a in range(len(countylikes)):
-        c = countylikes[a].coordinates
-        c = [np.array(x) for y in c for x in y]
-        perimiters[a] = sum([(((x[1:] - x[:-1]) ** 2).sum(-1) ** 0.5).sum() for x in c])
-
     weight = {}
     for a, n_a in enumerate(neighbors):
         for b in n_a:
@@ -208,5 +202,5 @@ def weights(countylikes, neighbors):
                         )
                         ** 2
                     ).sum() ** 0.5
-            weight[a, b] = total / perimiters[a]
+            weight[a, b] = total
     return weight

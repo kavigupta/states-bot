@@ -1,5 +1,6 @@
 import numpy as np
 import networkx as nx
+from permacache.hash import stable_hash
 
 
 class Graph:
@@ -37,3 +38,21 @@ class Graph:
 
     def subset_connected(self, subset):
         return nx.algorithms.components.is_connected(self.nx_graph.subgraph(subset))
+
+    @property
+    def edges(self):
+        return self.nx_graph.edges
+
+    def neighbors(self, node):
+        return self.nx_graph.neighbors(node)
+
+    def weight(self, u, v):
+        return self.data.weights[u, v]
+
+    @property
+    def hash(self):
+        return dict(
+            edges=stable_hash([sorted(v) for v in self.data.neighbors]),
+            eqstat=stable_hash(self.eqstat),
+            weight=stable_hash(sorted(self.data.weights.items())),
+        )
