@@ -105,12 +105,6 @@ class Data:
         )[0]
         return combine_names(biggest_city["name"], next_city["name"])
 
-    @lru_cache(None)
-    def kaway(self, x, k):
-        if k == 0:
-            return {x}
-        return {z for y in self.kaway(x, k - 1) for z in self.neighbors[y]}
-
 
 def combine_names(a, b):
     vowels = set("aeiouy")
