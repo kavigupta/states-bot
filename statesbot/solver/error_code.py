@@ -1,0 +1,2 @@
+class SolverFailure(Exception):
+    pass
