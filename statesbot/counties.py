@@ -16,7 +16,6 @@ from electiondata.examples.plotly_geojson import PlotlyGeoJSON
 class Countylike:
     ident = attr.ib()
     cities = attr.ib()
-    area = attr.ib()
     coordinates = attr.ib()
     pop = attr.ib()
     dem_2020 = attr.ib()
@@ -26,7 +25,6 @@ class Countylike:
         return cls(
             ident=f["id"],
             cities=city_map[f["id"]],
-            area=f["properties"]["CENSUSAREA"],
             coordinates=f["geometry"]["coordinates"],
             pop=pop_by_fips[f["id"]],
             dem_2020=dem_2020_by_fips[f["id"]],

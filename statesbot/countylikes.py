@@ -103,9 +103,6 @@ def get_subset_county(feat, shape_df):
             Countylike(
                 ident=feat.ident + "." + subcounty,
                 cities=cities[subcounty],
-                area=subcounty_polys[subcounty].area
-                / sum(v.area for v in subcounty_polys.values())
-                * feat.area,
                 pop=aggd_votes[subcounty][-1]
                 / sum(v[-1] for v in aggd_votes.values())
                 * feat.pop,
