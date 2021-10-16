@@ -31,7 +31,7 @@ def _initially_solve(graph, labels, rng_seed, indices, direction_choices=5):
     split = len(labels) // 2
 
     rng = np.random.RandomState(rng_seed)
-    direction = rng.randn(2, direction_choices)
+    direction = rng.randn(graph.euclidean.shape[-1], direction_choices)
     in_direction = graph.euclidean[indices] @ direction
     true_distances = (
         (
