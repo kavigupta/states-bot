@@ -39,7 +39,7 @@ def generate_map(seed):
         return path
     n_states = get_n_states(seed)
     data = get_data()
-    assign = sample_guaranteed(data, rng_seed=seed, n_states=n_states, pbar=tqdm.tqdm)
+    assign = sample_guaranteed(data, rng_seed=seed, n_states=n_states)
     title = f"Map {seed}: {n_states} states by Equipopulation"
     out = dict(map=assign.export(data), version=version, title=title)
     with open(path, "wb") as f:
