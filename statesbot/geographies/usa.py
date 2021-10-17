@@ -1,3 +1,4 @@
+from collections import defaultdict
 import json
 
 import geopandas
@@ -7,6 +8,9 @@ from permacache import permacache
 import shapely.geometry as geometry
 
 import addfips
+import us
+
+from .geography import GeographySource
 
 COUNTIES_TO_SPLIT = {
     "06037",
@@ -121,3 +125,45 @@ def usa_subcounties_dataset(version=7):
     df = pd.DataFrame(rows).rename(columns={"FIPS": "ident", "NAME": "name"})
     df = geopandas.GeoDataFrame(df, geometry=df.geometry)
     return df
+
+
+class USACountiesDataset(GeographySource):
+    def version(self):
+        return "1.0.0"
+
+    def geo_dataframe(self):
+        return usa_subcounties_dataset()
+
+    def additional_edges(self):
+        return [
+            ("51099", "24017"),  # south of dc
+            ("36103", "09001"),  # long island connected to conneticut
+            ("36103", "09009"),
+            ("36103", "09007"),
+            ("36103", "09011"),
+            ("26097", "26047"),  # michigan's parts connected
+            ("51131", "51810"),  # virginia beach
+            ("25019", "25007"),  # Nantucket Island
+            ("25019", "25001"),
+            ("53055", "53057"),  # san juan island
+            ("53055", "53073"),
+            ("5303393616", "53053"),  # vashon island
+            ("5303393616", "53035"),
+            ("5303393616", "5303391140"),
+            ("5303393616", "5303392928"),
+            ("0607392780", "15001"),  # San Diego --> Hawaii
+            ("15001", "15009"),  # Hawaii --> Maui
+            ("15009", "15003"),  # Maui --> Honolulu
+            ("15003", "15007"),  # Honolulu --> Kauai
+            ("53073", "02198"),  # Whatcom --> Alaska
+            ("12087", "72005"),  # Miami-Dade --> Auguadilla, PR
+            ("72147", "72037"),  # Vieques island to Ceiba
+            ("72049", "72037"),  # Culebra island to Ceiba
+            ("02016", "02013"),  # Aluetians West -> Alutians East
+        ]
+
+    def regions(self, geodb):
+        by_state = defaultdict(list)
+        for i, (_, row) in enumerate(geodb.iterrows()):
+            by_state[us.states.lookup(row.ident[:2]).name].append(i)
+        return dict(by_state.items())

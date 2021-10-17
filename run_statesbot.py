@@ -6,10 +6,10 @@ import functools
 
 import numpy as np
 
-from statesbot.data import Data
 from statesbot.version import version
 from statesbot.run_sampler import sample_guaranteed
 from statesbot.tweet import tweet_map, current_tweet_id
+from statesbot.geographies.usa import USACountiesDataset
 
 
 def get_n_states(seed):
@@ -29,7 +29,7 @@ def guarantee_path(seed):
 
 @functools.lru_cache(None)
 def get_data():
-    return Data()
+    return USACountiesDataset().construct()
 
 
 def generate_map(seed):
@@ -41,7 +41,7 @@ def generate_map(seed):
     data = get_data()
     assign = sample_guaranteed(data, rng_seed=seed, n_states=n_states)
     title = f"Map {seed}: {n_states} states by Equipopulation"
-    out = dict(map=assign.export(data), version=version, title=title)
+    out = dict(map=assign.export(), version=version, title=title)
     with open(path, "wb") as f:
         pickle.dump(out, f)
     return path

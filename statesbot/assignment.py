@@ -13,26 +13,27 @@ from .map import MapObject
 
 @attr.s
 class Assignment:
-    data = attr.ib()
-    meta = attr.ib()
+    geography = attr.ib()
+    graph = attr.ib()
+    num_states = attr.ib()
     state_to_counties = attr.ib()
     county_to_state = attr.ib()
 
     @classmethod
-    def from_county_to_state(cls, data, meta, county_to_state):
+    def from_county_to_state(cls, geography, graph, num_states, county_to_state):
         state_to_counties = defaultdict(set)
         for county, state in enumerate(county_to_state):
             state_to_counties[state].add(county)
-        return cls(data, meta, state_to_counties, county_to_state)
+        return cls(geography, graph, num_states, state_to_counties, county_to_state)
 
     @property
     def state_graph(self):
         graph = nx.Graph()
-        graph.add_nodes_from(range(self.meta.count))
+        graph.add_nodes_from(range(self.num_states))
 
-        for state in range(self.meta.count):
-            for other_state in range(self.meta.count):
-                if self.meta.bordering(
+        for state in range(self.num_states):
+            for other_state in range(self.num_states):
+                if self.graph.bordering(
                     self.state_to_counties[other_state], self.state_to_counties[state]
                 ):
                     graph.add_edge(state, other_state)
@@ -53,15 +54,15 @@ class Assignment:
             if resolved:
                 return coloring.tolist()
 
-    def draw(self, data, four_color=False):
+    def draw(self, four_color=False):
         coloring = self.coloring
         cts = self.county_to_state
         if four_color:
             cts = [coloring[x if x == x else 0] + x / 100 for x in cts]
         figure = go.Figure(
             go.Choropleth(
-                geojson=data.geojson,
-                locations=data.idents,
+                geojson=self.geography.geojson,
+                locations=self.geography.table.ident,
                 z=cts,
                 marker_line_width=0,
                 name="margin",
@@ -75,7 +76,7 @@ class Assignment:
 
     def county_polygons_for_state(self, state):
         counties = self.state_to_counties[state]
-        return [self.data.polygon(county) for county in counties]
+        return [self.geography.polygon(county) for county in counties]
 
     def multi_polygons_for_state(self, state):
         polys = unary_union([c for c in self.county_polygons_for_state(state)])
@@ -101,29 +102,30 @@ class Assignment:
             },
         }
 
-    def state_name(self, state, data):
-        return data.name_state(self.state_to_counties[state])
+    def state_name(self, state):
+        return self.geography.name_state(self.state_to_counties[state])
 
-    def export(self, data):
+    def export(self):
         return MapObject(
             coloring=self.coloring,
             states=list(self.state_to_counties),
             ident_to_state={
-                x: int(self.county_to_state[i]) for i, x in enumerate(data.idents)
+                x: int(self.county_to_state[i])
+                for i, x in enumerate(self.geography.table.ident)
             },
             capitols={
                 state: max(
                     [
                         city
                         for county in self.state_to_counties[state]
-                        for _, city in data.cities[county].iterrows()
+                        for _, city in self.geography.cities[county].iterrows()
                     ],
                     key=lambda x: x.Population,
                 )
                 for state in self.state_to_counties
             },
             state_names={
-                state: self.state_name(state, data) for state in self.state_to_counties
+                state: self.state_name(state) for state in self.state_to_counties
             },
             polygons={
                 state: self.multi_polygons_for_state(state)

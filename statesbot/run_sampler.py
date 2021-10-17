@@ -9,16 +9,14 @@ from .solver.solver_configuration import SolverConfiguration
 from .costs import PopulationDeviation
 
 from .graph import Graph
-from .data import Metadata
 from .assignment import Assignment
 
 from permacache import permacache
 
 
-def sample_guaranteed(data, *, rng_seed, n_states, config=SolverConfiguration()):
-    meta = Metadata(n_states, data.pops, data, data.centers)
+def sample_guaranteed(geography, *, rng_seed, n_states, config=SolverConfiguration()):
     rng = np.random.RandomState(rng_seed)
-    graph = Graph(data)
+    graph = Graph(geography, eqstat_key="population")
     while True:
         assign = sample(
             [PopulationDeviation()],
@@ -29,8 +27,9 @@ def sample_guaranteed(data, *, rng_seed, n_states, config=SolverConfiguration())
         )
         if ratio(graph, assign) < config.equality_ratio_limit:
             return Assignment.from_county_to_state(
-                data,
-                meta,
+                geography,
+                graph,
+                n_states,
                 assign,
             )
 
