@@ -36,7 +36,7 @@ def sample_guaranteed(data, *, rng_seed, n_states, config=SolverConfiguration())
 
 
 @permacache(
-    "statesbot/run_sampler/sample",
+    "statesbot/run_sampler/sample_2",
     key_function=dict(graph=lambda graph: graph.hash),
 )
 def sample(costs, graph, *, rng_seed, n_states, config):
@@ -49,6 +49,9 @@ def sample(costs, graph, *, rng_seed, n_states, config):
         config=config,
     )
 
+    for i in set(assign):
+        assert graph.subset_connected(np.where(assign == i)[0])
+
     assign = improve_until_convergence(
         costs,
         graph,
@@ -56,4 +59,8 @@ def sample(costs, graph, *, rng_seed, n_states, config):
         random_seed=rng.choice(2 ** 32),
         config=config,
     )
+
+    for i in set(assign):
+        assert graph.subset_connected(np.where(assign == i)[0])
+
     return assign

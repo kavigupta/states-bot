@@ -79,6 +79,8 @@ def attempt_improvement(costs, graph, assign, rng, first, second):
     new_cost = sum(cost(graph, left, right) for cost in costs)
     if new_cost > initial_cost:
         return False
+    if not graph.subset_connected(left) or not graph.subset_connected(right):
+        return False
     assign[left] = first
     assign[right] = second
     return True
