@@ -61,7 +61,7 @@ class Assignment:
         figure = go.Figure(
             go.Choropleth(
                 geojson=data.geojson,
-                locations=[c.ident for c in data.countylikes],
+                locations=data.idents,
                 z=cts,
                 marker_line_width=0,
                 name="margin",
@@ -75,17 +75,10 @@ class Assignment:
 
     def county_polygons_for_state(self, state):
         counties = self.state_to_counties[state]
-        return [
-            poly
-            for county in counties
-            for polys in self.data.countylikes[county].coordinates
-            for poly in polys
-        ]
+        return [self.data.polygon(county) for county in counties]
 
     def multi_polygons_for_state(self, state):
-        polys = unary_union(
-            [geometry.Polygon(c) for c in self.county_polygons_for_state(state)]
-        )
+        polys = unary_union([c for c in self.county_polygons_for_state(state)])
         if isinstance(polys, geometry.polygon.Polygon):
             return [polys]
         return polys
@@ -116,17 +109,16 @@ class Assignment:
             coloring=self.coloring,
             states=list(self.state_to_counties),
             ident_to_state={
-                x.ident: int(self.county_to_state[i])
-                for i, x in enumerate(data.countylikes)
+                x: int(self.county_to_state[i]) for i, x in enumerate(data.idents)
             },
             capitols={
                 state: max(
                     [
                         city
                         for county in self.state_to_counties[state]
-                        for city in data.countylikes[county].cities
+                        for _, city in data.cities[county].iterrows()
                     ],
-                    key=lambda x: x["population"],
+                    key=lambda x: x.Population,
                 )
                 for state in self.state_to_counties
             },

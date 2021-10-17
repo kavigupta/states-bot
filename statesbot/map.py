@@ -16,7 +16,8 @@ class MapObject:
 
     def attach_to(self, data):
         dem_2020_by_ident = {
-            c.ident: (c.pop, c.dem_2020 * c.pop) for c in data.countylikes
+            c.ident: (c.population, c.dem_2020 * c.population)
+            for _, c in data.table.iterrows()
         }
         self.dem_2020 = {}
         self.pop_2020 = {}
@@ -68,7 +69,7 @@ class MapObject:
                     "properties": {},
                     "geometry": {
                         "type": "Point",
-                        "coordinates": (city["longitude"], city["latitude"]),
+                        "coordinates": (city.x, city.y),
                     },
                 }
             )

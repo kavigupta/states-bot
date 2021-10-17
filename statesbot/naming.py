@@ -42,17 +42,18 @@ def name_state(regions, population, cities, counties):
     if name is not None:
         return name
 
-    cities_for_state = [city for county in counties for city in cities[county]]
-    biggest_city = max(cities_for_state, key=lambda x: x["population"])
+    cities_for_state = [
+        city for county in counties for _, city in cities[county].iterrows()
+    ]
+    biggest_city = max(cities_for_state, key=lambda x: x.Population)
     if len(counties) == 1:
-        return biggest_city["name"]
+        return biggest_city["ASCII Name"]
     cities_for_state = sorted(
-        [x for x in cities_for_state if x != biggest_city],
-        key=lambda x: x["population"],
+        [x for x in cities_for_state if not (x == biggest_city).all()],
+        key=lambda x: x.Population,
     )[-5:]
     distances = [
-        (x["latitude"] - biggest_city["latitude"]) ** 2
-        + (x["longitude"] - biggest_city["longitude"]) ** 2
+        (x.x - biggest_city.x) ** 2 + (x.y - biggest_city.y) ** 2
         for x in cities_for_state
     ]
 
@@ -61,4 +62,4 @@ def name_state(regions, population, cities, counties):
         zip(cities_for_state, distances),
         key=lambda x: x[1],
     )[0]
-    return combine_names(biggest_city["name"], next_city["name"])
+    return combine_names(biggest_city["ASCII Name"], next_city["ASCII Name"])
