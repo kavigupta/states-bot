@@ -1,4 +1,5 @@
 from collections import defaultdict
+import itertools
 
 import attr
 import numpy as np
@@ -41,18 +42,26 @@ class Assignment:
 
     @property
     def coloring(self):
-        rng = np.random.RandomState(0)
         g = self.state_graph
-        coloring = rng.choice(6, size=len(self.state_to_counties))
-        while True:
-            resolved = True
-            for v in range(coloring.shape[0]):
-                while any(coloring[v] == coloring[n] for n in g.neighbors(v) if n != v):
-                    u = rng.choice(coloring.shape[0])
-                    coloring[u], coloring[v] = coloring[v], coloring[u]
-                    resolved = False
-            if resolved:
-                return coloring.tolist()
+        colors = nx.algorithms.coloring.greedy_color(g)
+        if len(set(colors.values())) <= 6:
+            return [colors[i] for i in range(len(self.state_to_counties))]
+        for seed in itertools.count():
+            if seed > 0:
+                print("Coloring", seed)
+            rng = np.random.RandomState(seed)
+            coloring = rng.choice(6, size=len(self.state_to_counties))
+            for _ in range(10 ** 4):
+                resolved = True
+                for v in range(coloring.shape[0]):
+                    while any(
+                        coloring[v] == coloring[n] for n in g.neighbors(v) if n != v
+                    ):
+                        u = rng.choice(coloring.shape[0])
+                        coloring[u], coloring[v] = coloring[v], coloring[u]
+                        resolved = False
+                if resolved:
+                    return coloring.tolist()
 
     def draw(self, four_color=False):
         coloring = self.coloring
