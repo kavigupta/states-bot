@@ -45,7 +45,7 @@ class Graph:
     @property
     def hash(self):
         return dict(
-            edges=stable_hash(nx.node_link_data(self.nx_graph)),
+            graph=stable_hash([list(self.nx_graph.nodes), list(self.nx_graph.edges)]),
             eqstat=stable_hash(self.eqstat),
             weight=stable_hash(sorted(self.weights.items())),
             euclidean=stable_hash(self.euclidean),
