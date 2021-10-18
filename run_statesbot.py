@@ -5,12 +5,13 @@ import pickle
 import functools
 
 import numpy as np
-from statesbot.geographies.europe import EuropeCountiesDataset
 
 from statesbot.version import version
 from statesbot.run_sampler import sample_guaranteed
 from statesbot.tweet import tweet_map, current_tweet_id
 from statesbot.geographies.usa import USACountiesDataset
+from statesbot.geographies.euroamerica import EuroAmericaCountiesDataset
+from statesbot.geographies.europe import EuropeCountiesDataset
 
 
 def get_n_states(seed, max_states):
@@ -29,10 +30,20 @@ def guarantee_path(seed):
 
 
 def get_geography(seed):
+    if seed % 8 == 4:
+        return EuroAmericaCountiesDataset().construct()
     if seed % 2 == 0:
         return EuropeCountiesDataset().construct()
     else:
         return USACountiesDataset().construct()
+
+
+map_types = {
+    "atlas": 165,
+    "politics": 165,
+    "atlas_europe": 165,
+    "atlas_euroamerica": 130,
+}
 
 
 def generate_map(seed):
@@ -59,7 +70,7 @@ def render_map(seed):
     map_object["map"].ship()
     path = {}
     for which in geography.atlas_types:
-        for size, dpi in ("small", 165), ("large", 320):
+        for size, dpi in ("small", map_types[which]), ("large", 320):
             print(which, size, dpi)
             path[which, size] = f"maps/{seed}/states_bot_{seed:02d}_{size}_{which}.png"
             if os.path.exists(path[which, size]):
