@@ -8385,7 +8385,69 @@ def my_form_open(dialog, layer, feature):
         </LayoutItem>
         <GuideCollection visible="1"/>
       </PageCollection>
-      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" uuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" frameJoinStyle="miter" referencePoint="0" position="103.386,-0.15,mm" positionOnPage="103.386,-0.15,mm" type="65637" zValue="13" background="true" id="" frame="false" groupUuid="" positionLock="false" size="173.678,54.6218,mm" templateUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
+      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" keepLayerSet="false" uuid="{99a15e56-61a1-49ee-a73a-2b802c5ca862}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="278.212,321.857,mm" positionOnPage="278.212,321.857,mm" type="65639" zValue="38" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="41.7444,27.9932,mm" templateUuid="{99a15e56-61a1-49ee-a73a-2b802c5ca862}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
+        <FrameColor alpha="255" red="0" blue="0" green="0"/>
+        <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option name="name" value="" type="QString"/>
+              <Option name="properties"/>
+              <Option name="type" value="collection" type="QString"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <Extent ymin="27.41090885064753735" ymax="33.25499701069287539" xmax="-11.47525336925594885" xmin="-20.19015077502022848"/>
+        <crs>
+          <spatialrefsys>
+            <wkt>GEOGCRS["GCS_European_1979",DATUM["D_European_1979",ELLIPSOID["International 1924",6378388,297,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["unknown"],AREA["Europe - west"],BBOX[34.88,-10.56,84.17,39.65]],ID["ESRI",37201]]</wkt>
+            <proj4>+proj=longlat +ellps=intl +no_defs</proj4>
+            <srsid>27622</srsid>
+            <srid>37201</srid>
+            <authid>ESRI:37201</authid>
+            <description>GCS_European_1979</description>
+            <projectionacronym>longlat</projectionacronym>
+            <ellipsoidacronym>EPSG:7022</ellipsoidacronym>
+            <geographicflag>true</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <LayerSet/>
+        <AtlasMap margin="0.10000000000000001" scalingMode="2" atlasDriven="0"/>
+        <labelBlockingItems/>
+      </LayoutItem>
+      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" keepLayerSet="false" uuid="{0998fb37-8ccd-408b-b60d-6b812834a2b5}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="457.058,0.15,mm" positionOnPage="457.058,0.15,mm" type="65639" zValue="24" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="80.0279,23.4295,mm" templateUuid="{0998fb37-8ccd-408b-b60d-6b812834a2b5}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
+        <FrameColor alpha="255" red="0" blue="0" green="0"/>
+        <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option name="name" value="" type="QString"/>
+              <Option name="properties"/>
+              <Option name="type" value="collection" type="QString"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <Extent ymin="75.99255005803941287" ymax="81.82440876871537228" xmax="28.90294674436039202" xmin="8.98318124547061814"/>
+        <crs>
+          <spatialrefsys>
+            <wkt>GEOGCRS["GCS_European_1979",DATUM["D_European_1979",ELLIPSOID["International 1924",6378388,297,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["unknown"],AREA["Europe - west"],BBOX[34.88,-10.56,84.17,39.65]],ID["ESRI",37201]]</wkt>
+            <proj4>+proj=longlat +ellps=intl +no_defs</proj4>
+            <srsid>27622</srsid>
+            <srid>37201</srid>
+            <authid>ESRI:37201</authid>
+            <description>GCS_European_1979</description>
+            <projectionacronym>longlat</projectionacronym>
+            <ellipsoidacronym>EPSG:7022</ellipsoidacronym>
+            <geographicflag>true</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <LayerSet/>
+        <AtlasMap margin="0.10000000000000001" scalingMode="2" atlasDriven="0"/>
+        <labelBlockingItems/>
+      </LayoutItem>
+      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" uuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" frameJoinStyle="miter" referencePoint="0" position="-0.495553,2.66454e-15,mm" positionOnPage="-0.495553,2.66454e-15,mm" type="65637" zValue="13" background="true" id="" frame="false" groupUuid="" positionLock="false" size="173.678,54.6218,mm" templateUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8403,7 +8465,7 @@ def my_form_open(dialog, layer, feature):
         <ComposerItemGroupElement uuid="{b95e18b5-f6bd-41c7-b405-54221d554386}"/>
         <ComposerItemGroupElement uuid="{fc27bd17-73b9-4bca-b3f5-fe9f240ff1a1}"/>
       </LayoutItem>
-      <LayoutItem lineJoinStyle="miter" boxContentSpace="1" unitType="km" height="3" labelVerticalPlacement="0" positionLock="false" segmentSizeMode="0" alignment="0" itemRotation="0" outlineWidthM="0.3,mm" numSegmentsLeft="0" style="Single Box" uuid="{7f3fb8fd-3b21-48fb-a874-d5b58611e07c}" labelBarSpace="3" groupUuid="" segmentMillimeters="32.927" referencePoint="4" outlineWidth="0.3" numUnitsPerSegment="500" excludeFromExports="0" blendMode="0" lineCapStyle="square" size="68.454,19.7793,mm" mapUuid="{a6cacecf-fab1-477d-aa4b-9b9009f6db33}" unitLabel="km" zValue="12" frameJoinStyle="miter" type="65646" numMapUnitsPerScaleBarUnit="1" position="193.664,338.724,mm" positionOnPage="193.664,338.724,mm" numSegments="2" labelHorizontalPlacement="1" maxBarWidth="150" id="" templateUuid="{7f3fb8fd-3b21-48fb-a874-d5b58611e07c}" minBarWidth="50" opacity="1" background="false" frame="false" visibility="1">
+      <LayoutItem lineJoinStyle="miter" boxContentSpace="1" unitType="km" height="3" labelVerticalPlacement="0" positionLock="false" segmentSizeMode="0" alignment="0" itemRotation="0" outlineWidthM="0.3,mm" numSegmentsLeft="0" style="Single Box" uuid="{7f3fb8fd-3b21-48fb-a874-d5b58611e07c}" labelBarSpace="3" groupUuid="" segmentMillimeters="32.927" referencePoint="4" outlineWidth="0.3" numUnitsPerSegment="500" excludeFromExports="0" blendMode="0" lineCapStyle="square" size="68.454,19.7793,mm" mapUuid="{a6cacecf-fab1-477d-aa4b-9b9009f6db33}" unitLabel="km" zValue="12" frameJoinStyle="miter" type="65646" numMapUnitsPerScaleBarUnit="1" position="150.599,343.738,mm" positionOnPage="150.599,343.738,mm" numSegments="2" labelHorizontalPlacement="1" maxBarWidth="150" id="" templateUuid="{7f3fb8fd-3b21-48fb-a874-d5b58611e07c}" minBarWidth="50" opacity="1" background="false" frame="false" visibility="1">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8462,7 +8524,7 @@ def my_form_open(dialog, layer, feature):
         <fillColor2 alpha="255" red="255" blue="255" green="255"/>
         <strokeColor alpha="255" red="0" blue="0" green="0"/>
       </LayoutItem>
-      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" keepLayerSet="false" uuid="{da3c3f9e-f95b-4599-9ccd-0319c698b651}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="290.601,2.44922,mm" positionOnPage="290.601,2.44922,mm" type="65639" zValue="11" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="186.215,73.6811,mm" templateUuid="{da3c3f9e-f95b-4599-9ccd-0319c698b651}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
+      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" keepLayerSet="false" uuid="{da3c3f9e-f95b-4599-9ccd-0319c698b651}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="280.572,-2.70062e-14,mm" positionOnPage="280.572,-2.70062e-14,mm" type="65639" zValue="11" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="176.186,81.8487,mm" templateUuid="{da3c3f9e-f95b-4599-9ccd-0319c698b651}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8475,7 +8537,7 @@ def my_form_open(dialog, layer, feature):
           </dataDefinedProperties>
           <customproperties/>
         </LayoutObject>
-        <Extent ymin="35.45836852338577927" ymax="43.34018478743222857" xmax="45.3457425326538015" xmin="25.42597703376402762"/>
+        <Extent ymin="33.76263627992126004" ymax="43.01653471733767731" xmax="45.37729538130315632" xmin="25.45752988241338244"/>
         <crs>
           <spatialrefsys>
             <wkt>GEOGCRS["GCS_European_1979",DATUM["D_European_1979",ELLIPSOID["International 1924",6378388,297,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["unknown"],AREA["Europe - west"],BBOX[34.88,-10.56,84.17,39.65]],ID["ESRI",37201]]</wkt>
@@ -8493,7 +8555,7 @@ def my_form_open(dialog, layer, feature):
         <AtlasMap margin="0.10000000000000001" scalingMode="2" atlasDriven="0"/>
         <labelBlockingItems/>
       </LayoutItem>
-      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" uuid="{b7050239-0fec-48a4-8ac9-f1af98a14d25}" frameJoinStyle="miter" referencePoint="0" position="151.515,328.522,mm" positionOnPage="151.515,328.522,mm" type="65643" zValue="10" cornerRadiusMeasure="0,mm" background="false" id="" frame="false" groupUuid="" shapeType="1" positionLock="false" size="83.8688,16.4036,mm" templateUuid="{b7050239-0fec-48a4-8ac9-f1af98a14d25}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
+      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" uuid="{b7050239-0fec-48a4-8ac9-f1af98a14d25}" frameJoinStyle="miter" referencePoint="0" position="108.45,333.536,mm" positionOnPage="108.45,333.536,mm" type="65643" zValue="10" cornerRadiusMeasure="0,mm" background="false" id="" frame="false" groupUuid="" shapeType="1" positionLock="false" size="83.8688,16.4036,mm" templateUuid="{b7050239-0fec-48a4-8ac9-f1af98a14d25}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8529,7 +8591,7 @@ def my_form_open(dialog, layer, feature):
           </layer>
         </symbol>
       </LayoutItem>
-      <LayoutItem itemRotation="0" outlineWidthM="0.4,mm" keepLayerSet="false" uuid="{90921d63-ca0f-48b5-a1bb-573164f929a8}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="241.025,321.907,mm" positionOnPage="241.025,321.907,mm" type="65639" zValue="9" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="64.2752,27.7432,mm" templateUuid="{90921d63-ca0f-48b5-a1bb-573164f929a8}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
+      <LayoutItem itemRotation="0" outlineWidthM="0.4,mm" keepLayerSet="false" uuid="{90921d63-ca0f-48b5-a1bb-573164f929a8}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="215.947,321.907,mm" positionOnPage="215.947,321.907,mm" type="65639" zValue="9" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="64.2752,27.7432,mm" templateUuid="{90921d63-ca0f-48b5-a1bb-573164f929a8}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8591,7 +8653,7 @@ def my_form_open(dialog, layer, feature):
         <AtlasMap margin="0.10000000000000001" scalingMode="2" atlasDriven="0"/>
         <labelBlockingItems/>
       </LayoutItem>
-      <LayoutItem htmlState="1" itemRotation="0" outlineWidthM="0.3,mm" uuid="{fc27bd17-73b9-4bca-b3f5-fe9f240ff1a1}" frameJoinStyle="miter" referencePoint="4" marginX="0" labelText="by Kavi Gupta&#xa;&lt;br>&#xa;&lt;i>@bot_states version [%@statesbotversion%]&lt;/i>" valign="32" position="190.353,45.7534,mm" positionOnPage="190.353,45.7534,mm" type="65641" zValue="7" background="false" id="" frame="false" halign="4" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" positionLock="false" marginY="0" size="101.947,17.4368,mm" templateUuid="{fc27bd17-73b9-4bca-b3f5-fe9f240ff1a1}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
+      <LayoutItem htmlState="1" itemRotation="0" outlineWidthM="0.3,mm" uuid="{fc27bd17-73b9-4bca-b3f5-fe9f240ff1a1}" frameJoinStyle="miter" referencePoint="4" marginX="0" labelText="by Kavi Gupta&#xa;&lt;br>&#xa;&lt;i>@bot_states version [%@statesbotversion%]&lt;/i>" valign="32" position="86.4712,45.9034,mm" positionOnPage="86.4712,45.9034,mm" type="65641" zValue="7" background="false" id="" frame="false" halign="4" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" positionLock="false" marginY="0" size="101.947,17.4368,mm" templateUuid="{fc27bd17-73b9-4bca-b3f5-fe9f240ff1a1}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8607,7 +8669,7 @@ def my_form_open(dialog, layer, feature):
         <LabelFont style="" description="EB Garamond SC,10,-1,5,50,0,0,0,0,0"/>
         <FontColor alpha="255" red="0" blue="0" green="0"/>
       </LayoutItem>
-      <LayoutItem htmlState="1" itemRotation="0" outlineWidthM="0.3,mm" uuid="{3d2dc26c-01b6-49f4-9a31-d208f2c38d0b}" frameJoinStyle="miter" referencePoint="4" marginX="0" labelText="[% @project_title %]" valign="32" position="190.138,11.0655,mm" positionOnPage="190.138,11.0655,mm" type="65641" zValue="6" background="false" id="" frame="false" halign="4" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" positionLock="false" marginY="0" size="167.708,14.9994,mm" templateUuid="{3d2dc26c-01b6-49f4-9a31-d208f2c38d0b}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
+      <LayoutItem htmlState="1" itemRotation="0" outlineWidthM="0.3,mm" uuid="{3d2dc26c-01b6-49f4-9a31-d208f2c38d0b}" frameJoinStyle="miter" referencePoint="4" marginX="0" labelText="[% @project_title %]" valign="32" position="86.2565,11.2155,mm" positionOnPage="86.2565,11.2155,mm" type="65641" zValue="6" background="false" id="" frame="false" halign="4" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" positionLock="false" marginY="0" size="167.708,14.9994,mm" templateUuid="{3d2dc26c-01b6-49f4-9a31-d208f2c38d0b}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8623,7 +8685,7 @@ def my_form_open(dialog, layer, feature):
         <LabelFont style="" description="EB Garamond SC,20,-1,5,50,0,0,0,0,0"/>
         <FontColor alpha="255" red="0" blue="0" green="0"/>
       </LayoutItem>
-      <LayoutItem lineJoinStyle="miter" boxContentSpace="1" unitType="km" height="3" labelVerticalPlacement="0" positionLock="false" segmentSizeMode="0" alignment="0" itemRotation="0" outlineWidthM="0.3,mm" numSegmentsLeft="0" style="Single Box" uuid="{6e7fe7e2-edeb-454a-95c5-2fc8fec3dff3}" labelBarSpace="3" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" segmentMillimeters="27.2896" referencePoint="4" outlineWidth="0.3" numUnitsPerSegment="250" excludeFromExports="0" blendMode="0" lineCapStyle="square" size="57.1793,27.0255,mm" mapUuid="{1472ddf3-d496-4122-9e5a-77334eb6d9b8}" unitLabel="km" zValue="5" frameJoinStyle="miter" type="65646" numMapUnitsPerScaleBarUnit="1" position="190.353,32.078,mm" positionOnPage="190.353,32.078,mm" numSegments="2" labelHorizontalPlacement="1" maxBarWidth="150" id="" templateUuid="{6e7fe7e2-edeb-454a-95c5-2fc8fec3dff3}" minBarWidth="50" opacity="1" background="false" frame="false" visibility="1">
+      <LayoutItem lineJoinStyle="miter" boxContentSpace="1" unitType="km" height="3" labelVerticalPlacement="0" positionLock="false" segmentSizeMode="0" alignment="0" itemRotation="0" outlineWidthM="0.3,mm" numSegmentsLeft="0" style="Single Box" uuid="{6e7fe7e2-edeb-454a-95c5-2fc8fec3dff3}" labelBarSpace="3" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" segmentMillimeters="27.0044" referencePoint="4" outlineWidth="0.3" numUnitsPerSegment="250" excludeFromExports="0" blendMode="0" lineCapStyle="square" size="56.6087,27.0255,mm" mapUuid="{1472ddf3-d496-4122-9e5a-77334eb6d9b8}" unitLabel="km" zValue="5" frameJoinStyle="miter" type="65646" numMapUnitsPerScaleBarUnit="1" position="86.4712,32.228,mm" positionOnPage="86.4712,32.228,mm" numSegments="2" labelHorizontalPlacement="1" maxBarWidth="150" id="" templateUuid="{6e7fe7e2-edeb-454a-95c5-2fc8fec3dff3}" minBarWidth="50" opacity="1" background="false" frame="false" visibility="1">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8682,7 +8744,7 @@ def my_form_open(dialog, layer, feature):
         <fillColor2 alpha="255" red="255" blue="255" green="255"/>
         <strokeColor alpha="255" red="0" blue="0" green="0"/>
       </LayoutItem>
-      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" uuid="{b95e18b5-f6bd-41c7-b405-54221d554386}" frameJoinStyle="miter" referencePoint="0" position="103.386,-0.15,mm" positionOnPage="103.386,-0.15,mm" type="65643" zValue="4" cornerRadiusMeasure="0,mm" background="false" id="" frame="false" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" shapeType="1" positionLock="false" size="173.678,47.4591,mm" templateUuid="{b95e18b5-f6bd-41c7-b405-54221d554386}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
+      <LayoutItem itemRotation="0" outlineWidthM="0.3,mm" uuid="{b95e18b5-f6bd-41c7-b405-54221d554386}" frameJoinStyle="miter" referencePoint="0" position="-0.495553,2.83107e-15,mm" positionOnPage="-0.495553,2.83107e-15,mm" type="65643" zValue="4" cornerRadiusMeasure="0,mm" background="false" id="" frame="false" groupUuid="{ede7ef1b-dd96-487b-a104-737771a84a2d}" shapeType="1" positionLock="false" size="173.678,47.4591,mm" templateUuid="{b95e18b5-f6bd-41c7-b405-54221d554386}" visibility="1" opacity="1" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8736,7 +8798,7 @@ def my_form_open(dialog, layer, feature):
         <AtlasMap margin="0.10000000000000001" scalingMode="2" atlasDriven="0"/>
         <labelBlockingItems/>
       </LayoutItem>
-      <LayoutItem itemRotation="0" outlineWidthM="0.4,mm" keepLayerSet="false" uuid="{f01fee71-f936-46f9-a03d-d1bdd4417d03}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="0.2,0.2,mm" positionOnPage="0.2,0.2,mm" type="65639" zValue="2" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="86.0935,69.6757,mm" templateUuid="{f01fee71-f936-46f9-a03d-d1bdd4417d03}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
+      <LayoutItem itemRotation="0" outlineWidthM="0.4,mm" keepLayerSet="false" uuid="{f01fee71-f936-46f9-a03d-d1bdd4417d03}" frameJoinStyle="miter" followPresetName="Atlas" referencePoint="0" labelMargin="0,mm" position="0.049947,45.9407,mm" positionOnPage="0.049947,45.9407,mm" type="65639" zValue="2" background="true" id="" frame="true" mapRotation="0" groupUuid="" mapFlags="0" positionLock="false" drawCanvasItems="true" size="86.0935,77.0144,mm" templateUuid="{f01fee71-f936-46f9-a03d-d1bdd4417d03}" visibility="1" opacity="1" followPreset="true" blendMode="0" excludeFromExports="0">
         <FrameColor alpha="255" red="0" blue="0" green="0"/>
         <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
         <LayoutObject>
@@ -8749,7 +8811,7 @@ def my_form_open(dialog, layer, feature):
           </dataDefinedProperties>
           <customproperties/>
         </LayoutObject>
-        <Extent ymin="-175126.29063249099999666" ymax="9006210.73013893514871597" xmax="5865004.89245168771594763" xmin="-5479752.37747418042272329"/>
+        <Extent ymin="-658648.52075965236872435" ymax="9489732.96026609465479851" xmax="5865004.89245168771594763" xmin="-5479752.37747418042272329"/>
         <crs>
           <spatialrefsys>
             <wkt>PROJCRS["NAD27 / Alaska Albers",BASEGEOGCRS["NAD27",DATUM["North American Datum 1927",ELLIPSOID["Clarke 1866",6378206.4,294.978698213898,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4267]],CONVERSION["Alaska Albers",METHOD["Albers Equal Area",ID["EPSG",9822]],PARAMETER["Latitude of false origin",50,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8821]],PARAMETER["Longitude of false origin",-154,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8822]],PARAMETER["Latitude of 1st standard parallel",55,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8823]],PARAMETER["Latitude of 2nd standard parallel",65,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8824]],PARAMETER["Easting at false origin",0,LENGTHUNIT["US survey foot",0.304800609601219],ID["EPSG",8826]],PARAMETER["Northing at false origin",0,LENGTHUNIT["US survey foot",0.304800609601219],ID["EPSG",8827]]],CS[Cartesian,2],AXIS["easting (X)",east,ORDER[1],LENGTHUNIT["US survey foot",0.304800609601219]],AXIS["northing (Y)",north,ORDER[2],LENGTHUNIT["US survey foot",0.304800609601219]],USAGE[SCOPE["unknown"],AREA["USA - Alaska"],BBOX[51.3,172.42,71.4,-129.99]],ID["EPSG",2964]]</wkt>
@@ -8780,7 +8842,7 @@ def my_form_open(dialog, layer, feature):
           </dataDefinedProperties>
           <customproperties/>
         </LayoutObject>
-        <Extent ymin="35.29354117994223117" ymax="71.42917020287156049" xmax="30.21801214086572784" xmin="-42.05324590499289172"/>
+        <Extent ymin="34.50175229577305913" ymax="70.63738131870239556" xmax="30.03529162913436679" xmin="-42.23596641672425278"/>
         <crs>
           <spatialrefsys>
             <wkt>GEOGCRS["GCS_European_1979",DATUM["D_European_1979",ELLIPSOID["International 1924",6378388,297,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["unknown"],AREA["Europe - west"],BBOX[34.88,-10.56,84.17,39.65]],ID["ESRI",37201]]</wkt>
