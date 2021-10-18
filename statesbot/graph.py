@@ -6,7 +6,7 @@ from permacache.hash import stable_hash
 class Graph:
     def __init__(self, data, eqstat_key):
         self.nx_graph = nx.Graph()
-        self.nx_graph.add_nodes_from(self.vertex_indices)
+        self.nx_graph.add_nodes_from(np.arange(len(data.table)))
         self.nx_graph.add_edges_from(
             [(u, v) for u, vs in enumerate(data.neighbors) for v in vs]
         )

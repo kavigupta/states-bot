@@ -39,11 +39,15 @@ def current_tweet_id():
 
 
 def tweet_map(title, extra_title, images):
+    [atlas_key] = {key for key, _ in images if key.startswith("atlas")}
+
     initial_tweet = get_api().update_with_media(
-        images["atlas", "small"],
-        status=title + " " + extra_title % images["atlas", "large"],
+        images[atlas_key, "small"],
+        status=title + " " + extra_title % images[atlas_key, "large"],
     )
     print("Tweeted message")
+    if ("politics", "small") not in images:
+        return
     get_api().update_with_media(
         images["politics", "small"],
         in_reply_to_status_id=initial_tweet.id,

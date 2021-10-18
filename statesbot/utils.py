@@ -28,3 +28,11 @@ def hash_dataframe(df):
             {k: [geometry.mapping(x) for x in df[k]] for k in df if "geometry" in k}
         ),
     )
+
+
+def sequence(*items):
+    return list(zip(items, items[1:]))
+
+
+def to_all(first, *rest):
+    return [(first, x) for x in rest]

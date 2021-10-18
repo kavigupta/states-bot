@@ -22,6 +22,8 @@ class Geography:
     weights = attr.ib()
     neighbors = attr.ib()
     regions = attr.ib()
+    max_states = attr.ib()
+    atlas_types = attr.ib()
 
     @property
     def geojson(self):
@@ -71,6 +73,14 @@ class GeographySource(ABC):
     def regions(self, geo_df):
         pass
 
+    @abstractmethod
+    def max_states(self):
+        pass
+
+    @abstractmethod
+    def atlas_types(self):
+        pass
+
     def construct(self):
         return construct_geography(self)
 
@@ -108,6 +118,8 @@ def construct_geography(source):
         weights=weights,
         neighbors=neighbors,
         regions=source.regions(table),
+        max_states=source.max_states(),
+        atlas_types=source.atlas_types(),
     )
 
 

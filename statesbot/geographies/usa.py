@@ -129,7 +129,7 @@ def usa_subcounties_dataset(version=7):
 
 class USACountiesDataset(GeographySource):
     def version(self):
-        return "1.0.0"
+        return "1.0.1"
 
     def geo_dataframe(self):
         return usa_subcounties_dataset()
@@ -167,3 +167,9 @@ class USACountiesDataset(GeographySource):
         for i, (_, row) in enumerate(geodb.iterrows()):
             by_state[us.states.lookup(row.ident[:2]).name].append(i)
         return dict(by_state.items())
+
+    def atlas_types(self):
+        return ["atlas", "politics"]
+
+    def max_states(self):
+        return 50

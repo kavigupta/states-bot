@@ -5,6 +5,7 @@ import pickle
 import functools
 
 import numpy as np
+from statesbot.geographies.europe import EuropeCountiesDataset
 
 from statesbot.version import version
 from statesbot.run_sampler import sample_guaranteed
@@ -12,10 +13,10 @@ from statesbot.tweet import tweet_map, current_tweet_id
 from statesbot.geographies.usa import USACountiesDataset
 
 
-def get_n_states(seed):
+def get_n_states(seed, max_states):
     if seed % 3 == 1:
-        return 50
-    return np.random.RandomState(seed).randint(40) + 10
+        return max_states
+    return np.random.RandomState(seed).choice(np.arange(2, max_states))
 
 
 def guarantee_path(seed):
@@ -27,9 +28,11 @@ def guarantee_path(seed):
     return path
 
 
-@functools.lru_cache(None)
-def get_data():
-    return USACountiesDataset().construct()
+def get_geography(seed):
+    if seed % 2 == 0:
+        return EuropeCountiesDataset().construct()
+    else:
+        return USACountiesDataset().construct()
 
 
 def generate_map(seed):
@@ -37,9 +40,9 @@ def generate_map(seed):
     path = f"{path}/assignment.pkl"
     if os.path.exists(path):
         return path
-    n_states = get_n_states(seed)
-    data = get_data()
-    assign = sample_guaranteed(data, rng_seed=seed, n_states=n_states)
+    geography = get_geography(seed)
+    n_states = get_n_states(seed, geography.max_states)
+    assign = sample_guaranteed(geography, rng_seed=seed, n_states=n_states)
     title = f"Map {seed}: {n_states} states by Equipopulation"
     out = dict(map=assign.export(), version=version, title=title)
     with open(path, "wb") as f:
@@ -48,14 +51,14 @@ def generate_map(seed):
 
 
 def render_map(seed):
-    data = get_data()
+    geography = get_geography(seed)
     with open(generate_map(seed), "rb") as f:
         map_object = pickle.load(f)
-        map_object["map"].attach_to(data)
+        map_object["map"].attach_to(geography)
 
     map_object["map"].ship()
     path = {}
-    for which in "atlas", "politics":
+    for which in geography.atlas_types:
         for size, dpi in ("small", 165), ("large", 320):
             print(which, size, dpi)
             path[which, size] = f"maps/{seed}/states_bot_{seed:02d}_{size}_{which}.png"

@@ -17,12 +17,16 @@ def get_edges(df):
     possible_edges = [
         (ident_back[row.ident_left], ident_back[row.ident_right])
         for _, row in geopandas.sjoin(df, df, how="left", op="intersects").iterrows()
+        if row.ident_left != row.ident_right
     ]
     polygons = list(df.spherical_geometry)
     edges = {}
+    print("EDGES")
     for i, j in tqdm.tqdm(possible_edges):
         intersection = (
-            snap(polygons[i], polygons[j], 1e-4).buffer(0).intersection(polygons[j])
+            snap(polygons[i], polygons[j], 1e-4)
+            .buffer(0)
+            .intersection(polygons[j].buffer(0))
         )
         if intersection.is_empty:
             continue
