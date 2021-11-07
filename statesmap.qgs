@@ -8952,7 +8952,38 @@ def my_form_open(dialog, layer, feature):
         </LayoutItem>
         <GuideCollection visible="1"/>
       </PageCollection>
-      <LayoutItem uuid="{1e2c9574-da7d-448e-9ec9-645556725309}" templateUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" position="457.488,299.398,mm" background="true" size="124.2,44.689,mm" blendMode="0" excludeFromExports="0" zValue="13" positionOnPage="457.488,299.398,mm" itemRotation="0" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="" type="65637">
+      <LayoutItem uuid="{251302d4-c946-4e4f-8453-2b1cc43e232c}" labelMargin="0,mm" templateUuid="{251302d4-c946-4e4f-8453-2b1cc43e232c}" position="425.048,251.441,mm" background="true" size="168.802,100.379,mm" drawCanvasItems="true" followPreset="true" followPresetName="Atlas" blendMode="0" excludeFromExports="0" mapRotation="0" zValue="22" positionOnPage="425.048,251.441,mm" itemRotation="0" mapFlags="0" keepLayerSet="false" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="true" positionLock="false" outlineWidthM="0.3,mm" groupUuid="" type="65639">
+        <FrameColor red="0" green="0" alpha="255" blue="0"/>
+        <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""/>
+              <Option name="properties"/>
+              <Option name="type" type="QString" value="collection"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <Extent ymax="4909437.07868874166160822" xmin="-2384967.40045557869598269" ymin="2406770.33049626182764769" xmax="1823633.09829282993450761"/>
+        <crs>
+          <spatialrefsys>
+            <wkt>PROJCRS["Canada_Albers_Equal_Area_Conic",BASEGEOGCRS["NAD83",DATUM["North American Datum 1983",ELLIPSOID["GRS 1980",6378137,298.257222101,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["Degree",0.0174532925199433]]],CONVERSION["Canada_Albers_Equal_Area_Conic",METHOD["Albers Equal Area",ID["EPSG",9822]],PARAMETER["Latitude of false origin",40,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8821]],PARAMETER["Longitude of false origin",-96,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8822]],PARAMETER["Latitude of 1st standard parallel",50,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8823]],PARAMETER["Latitude of 2nd standard parallel",70,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8824]],PARAMETER["Easting at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8826]],PARAMETER["Northing at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8827]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["unknown"],AREA["Canada"],BBOX[40.04,-141.01,86.46,-47.74]],ID["ESRI",102001]]</wkt>
+            <proj4>+proj=aea +lat_0=40 +lon_0=-96 +lat_1=50 +lat_2=70 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</proj4>
+            <srsid>27124</srsid>
+            <srid>102001</srid>
+            <authid>ESRI:102001</authid>
+            <description>Canada_Albers_Equal_Area_Conic</description>
+            <projectionacronym>aea</projectionacronym>
+            <ellipsoidacronym>EPSG:7019</ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <LayerSet/>
+        <AtlasMap atlasDriven="0" scalingMode="2" margin="0.10000000000000001"/>
+        <labelBlockingItems/>
+      </LayoutItem>
+      <LayoutItem uuid="{1e2c9574-da7d-448e-9ec9-645556725309}" templateUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" position="467.172,5.55057,mm" background="true" size="124.2,44.689,mm" blendMode="0" excludeFromExports="0" zValue="13" positionOnPage="467.172,5.55057,mm" itemRotation="0" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="" type="65637">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -8970,7 +9001,7 @@ def my_form_open(dialog, layer, feature):
         <ComposerItemGroupElement uuid="{94155a5f-bd28-4c2f-994d-d92a1f71e34c}"/>
         <ComposerItemGroupElement uuid="{1bb6ef54-770e-4251-ae72-4769433ee112}"/>
       </LayoutItem>
-      <LayoutItem uuid="{cd7c124f-5f82-47b4-9a22-fece60e0e4e8}" templateUuid="{cd7c124f-5f82-47b4-9a22-fece60e0e4e8}" position="519.454,336.954,mm" background="false" size="72.6397,14.266,mm" valign="32" blendMode="0" excludeFromExports="0" htmlState="1" labelText="by Kavi Gupta&#xa;&lt;br>&#xa;&lt;i>@bot_states version [%@statesbotversion%]&lt;/i>" zValue="12" positionOnPage="519.454,336.954,mm" marginY="0" itemRotation="0" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="4" halign="4" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" type="65641" marginX="0">
+      <LayoutItem uuid="{cd7c124f-5f82-47b4-9a22-fece60e0e4e8}" templateUuid="{cd7c124f-5f82-47b4-9a22-fece60e0e4e8}" position="529.138,43.1066,mm" background="false" size="72.6397,14.266,mm" valign="32" blendMode="0" excludeFromExports="0" htmlState="1" labelText="by Kavi Gupta&#xa;&lt;br>&#xa;&lt;i>@bot_states version [%@statesbotversion%]&lt;/i>" zValue="12" positionOnPage="529.138,43.1066,mm" marginY="0" itemRotation="0" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="4" halign="4" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" type="65641" marginX="0">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -8986,7 +9017,7 @@ def my_form_open(dialog, layer, feature):
         <LabelFont style="" description="EB Garamond SC,10,-1,5,50,0,0,0,0,0"/>
         <FontColor red="0" green="0" alpha="255" blue="0"/>
       </LayoutItem>
-      <LayoutItem uuid="{67100c50-99b8-4e1d-bfaa-d541343f8f77}" templateUuid="{67100c50-99b8-4e1d-bfaa-d541343f8f77}" position="519.301,308.574,mm" background="false" size="119.496,12.2718,mm" valign="32" blendMode="0" excludeFromExports="0" htmlState="1" labelText="[% @project_title %]" zValue="11" positionOnPage="519.301,308.574,mm" marginY="0" itemRotation="0" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="4" halign="4" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" type="65641" marginX="0">
+      <LayoutItem uuid="{67100c50-99b8-4e1d-bfaa-d541343f8f77}" templateUuid="{67100c50-99b8-4e1d-bfaa-d541343f8f77}" position="528.985,14.7266,mm" background="false" size="119.496,12.2718,mm" valign="32" blendMode="0" excludeFromExports="0" htmlState="1" labelText="[% @project_title %]" zValue="11" positionOnPage="528.985,14.7266,mm" marginY="0" itemRotation="0" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="4" halign="4" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" type="65641" marginX="0">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -9002,7 +9033,7 @@ def my_form_open(dialog, layer, feature):
         <LabelFont style="" description="EB Garamond SC,20,-1,5,50,0,0,0,0,0"/>
         <FontColor red="0" green="0" alpha="255" blue="0"/>
       </LayoutItem>
-      <LayoutItem excludeFromExports="0" numMapUnitsPerScaleBarUnit="1" outlineWidth="0.3" size="61.9546,22.111,mm" segmentSizeMode="0" height="3" zValue="10" uuid="{94155a5f-bd28-4c2f-994d-d92a1f71e34c}" style="Single Box" labelHorizontalPlacement="1" labelVerticalPlacement="0" opacity="1" lineJoinStyle="miter" alignment="0" templateUuid="{94155a5f-bd28-4c2f-994d-d92a1f71e34c}" outlineWidthM="0.3,mm" positionOnPage="519.454,325.766,mm" numUnitsPerSegment="250" labelBarSpace="3" id="" unitType="km" type="65646" unitLabel="km" frameJoinStyle="miter" position="519.454,325.766,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" maxBarWidth="150" numSegmentsLeft="0" positionLock="false" visibility="1" lineCapStyle="square" segmentMillimeters="29.6773" minBarWidth="50" numSegments="2" frame="false" blendMode="0" background="false" referencePoint="4" boxContentSpace="1" itemRotation="0">
+      <LayoutItem excludeFromExports="0" numMapUnitsPerScaleBarUnit="1" outlineWidth="0.3" size="61.9546,22.111,mm" segmentSizeMode="0" height="3" zValue="10" uuid="{94155a5f-bd28-4c2f-994d-d92a1f71e34c}" style="Single Box" labelHorizontalPlacement="1" labelVerticalPlacement="0" opacity="1" lineJoinStyle="miter" alignment="0" templateUuid="{94155a5f-bd28-4c2f-994d-d92a1f71e34c}" outlineWidthM="0.3,mm" positionOnPage="529.138,31.9186,mm" numUnitsPerSegment="250" labelBarSpace="3" id="" unitType="km" type="65646" unitLabel="km" frameJoinStyle="miter" position="529.138,31.9186,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" maxBarWidth="150" numSegmentsLeft="0" positionLock="false" visibility="1" lineCapStyle="square" segmentMillimeters="29.6773" minBarWidth="50" numSegments="2" frame="false" blendMode="0" background="false" referencePoint="4" boxContentSpace="1" itemRotation="0">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -9061,7 +9092,7 @@ def my_form_open(dialog, layer, feature):
         <fillColor2 red="255" green="255" alpha="255" blue="255"/>
         <strokeColor red="0" green="0" alpha="255" blue="0"/>
       </LayoutItem>
-      <LayoutItem uuid="{8b47a191-8c62-40cc-a3ed-c0f30176e0d8}" labelMargin="0,mm" templateUuid="{8b47a191-8c62-40cc-a3ed-c0f30176e0d8}" position="0.15,248.945,mm" background="true" size="288.89,100.905,mm" drawCanvasItems="true" followPreset="true" followPresetName="Atlas" blendMode="0" excludeFromExports="0" mapRotation="40" zValue="10" positionOnPage="0.15,248.945,mm" itemRotation="0" mapFlags="0" keepLayerSet="false" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="true" positionLock="false" outlineWidthM="0.3,mm" groupUuid="" type="65639">
+      <LayoutItem uuid="{8b47a191-8c62-40cc-a3ed-c0f30176e0d8}" labelMargin="0,mm" templateUuid="{8b47a191-8c62-40cc-a3ed-c0f30176e0d8}" position="0.15,215.047,mm" background="true" size="351.955,134.803,mm" drawCanvasItems="true" followPreset="true" followPresetName="Atlas" blendMode="0" excludeFromExports="0" mapRotation="40" zValue="10" positionOnPage="0.15,215.047,mm" itemRotation="0" mapFlags="0" keepLayerSet="false" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="true" positionLock="false" outlineWidthM="0.3,mm" groupUuid="" type="65639">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -9074,7 +9105,7 @@ def my_form_open(dialog, layer, feature):
           </dataDefinedProperties>
           <customproperties/>
         </LayoutObject>
-        <Extent ymax="994124.44939097261521965" xmin="786154.1045091466512531" ymin="547425.71580063842702657" xmax="2065049.15700459876097739"/>
+        <Extent ymax="1003470.35727503092493862" xmin="784259.30776648898608983" ymin="513640.23529425787273794" xmax="2063154.36026194109581411"/>
         <crs>
           <spatialrefsys>
             <wkt>PROJCRS["Canada_Albers_Equal_Area_Conic",BASEGEOGCRS["NAD83",DATUM["North American Datum 1983",ELLIPSOID["GRS 1980",6378137,298.257222101,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["Degree",0.0174532925199433]]],CONVERSION["Canada_Albers_Equal_Area_Conic",METHOD["Albers Equal Area",ID["EPSG",9822]],PARAMETER["Latitude of false origin",40,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8821]],PARAMETER["Longitude of false origin",-96,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8822]],PARAMETER["Latitude of 1st standard parallel",50,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8823]],PARAMETER["Latitude of 2nd standard parallel",70,ANGLEUNIT["Degree",0.0174532925199433],ID["EPSG",8824]],PARAMETER["Easting at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8826]],PARAMETER["Northing at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8827]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["unknown"],AREA["Canada"],BBOX[40.04,-141.01,86.46,-47.74]],ID["ESRI",102001]]</wkt>
@@ -9092,7 +9123,7 @@ def my_form_open(dialog, layer, feature):
         <AtlasMap atlasDriven="0" scalingMode="2" margin="0.10000000000000001"/>
         <labelBlockingItems/>
       </LayoutItem>
-      <LayoutItem uuid="{1bb6ef54-770e-4251-ae72-4769433ee112}" templateUuid="{1bb6ef54-770e-4251-ae72-4769433ee112}" position="457.488,299.398,mm" background="false" size="124.2,39.273,mm" blendMode="0" excludeFromExports="0" zValue="9" positionOnPage="457.488,299.398,mm" itemRotation="0" opacity="1" cornerRadiusMeasure="0,mm" shapeType="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" type="65643">
+      <LayoutItem uuid="{1bb6ef54-770e-4251-ae72-4769433ee112}" templateUuid="{1bb6ef54-770e-4251-ae72-4769433ee112}" position="467.172,5.55057,mm" background="false" size="124.2,39.273,mm" blendMode="0" excludeFromExports="0" zValue="9" positionOnPage="467.172,5.55057,mm" itemRotation="0" opacity="1" cornerRadiusMeasure="0,mm" shapeType="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="{1e2c9574-da7d-448e-9ec9-645556725309}" type="65643">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -9178,7 +9209,7 @@ def my_form_open(dialog, layer, feature):
         <LabelFont style="" description="EB Garamond SC,20,-1,5,50,0,0,0,0,0"/>
         <FontColor red="0" green="0" alpha="255" blue="0"/>
       </LayoutItem>
-      <LayoutItem excludeFromExports="0" numMapUnitsPerScaleBarUnit="1" outlineWidth="0.3" size="52.7144,22.111,mm" segmentSizeMode="0" height="3" zValue="3" uuid="{23b8aa88-d0a3-4ecf-8b33-c3b69817092d}" style="Single Box" labelHorizontalPlacement="1" labelVerticalPlacement="0" opacity="1" lineJoinStyle="miter" alignment="0" templateUuid="{23b8aa88-d0a3-4ecf-8b33-c3b69817092d}" outlineWidthM="0.3,mm" positionOnPage="nan,32.0686,mm" numUnitsPerSegment="250" labelBarSpace="3" id="" unitType="km" type="65646" unitLabel="km" frameJoinStyle="miter" position="nan,32.0686,mm" groupUuid="{f2ea2494-167b-4802-a7d6-4b5392a3e447}" mapUuid="{939554c2-90b4-49c4-9589-0a183a8e0cba}" maxBarWidth="150" numSegmentsLeft="0" positionLock="false" visibility="1" lineCapStyle="square" segmentMillimeters="25.0572" minBarWidth="50" numSegments="2" frame="false" blendMode="0" background="false" referencePoint="4" boxContentSpace="1" itemRotation="0">
+      <LayoutItem excludeFromExports="0" numMapUnitsPerScaleBarUnit="1" outlineWidth="0.3" size="61.2588,22.111,mm" segmentSizeMode="0" height="3" zValue="3" uuid="{23b8aa88-d0a3-4ecf-8b33-c3b69817092d}" style="Single Box" labelHorizontalPlacement="1" labelVerticalPlacement="0" opacity="1" lineJoinStyle="miter" alignment="0" templateUuid="{23b8aa88-d0a3-4ecf-8b33-c3b69817092d}" outlineWidthM="0.3,mm" positionOnPage="nan,32.0686,mm" numUnitsPerSegment="250" labelBarSpace="3" id="" unitType="km" type="65646" unitLabel="km" frameJoinStyle="miter" position="nan,32.0686,mm" groupUuid="{f2ea2494-167b-4802-a7d6-4b5392a3e447}" mapUuid="{939554c2-90b4-49c4-9589-0a183a8e0cba}" maxBarWidth="150" numSegmentsLeft="0" positionLock="false" visibility="1" lineCapStyle="square" segmentMillimeters="29.3294" minBarWidth="50" numSegments="2" frame="false" blendMode="0" background="false" referencePoint="4" boxContentSpace="1" itemRotation="0">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -9273,7 +9304,7 @@ def my_form_open(dialog, layer, feature):
           </layer>
         </symbol>
       </LayoutItem>
-      <LayoutItem uuid="{939554c2-90b4-49c4-9589-0a183a8e0cba}" labelMargin="0,mm" templateUuid="{939554c2-90b4-49c4-9589-0a183a8e0cba}" position="0,0,mm" background="true" size="594,350,mm" drawCanvasItems="true" followPreset="true" followPresetName="Atlas" blendMode="0" excludeFromExports="0" mapRotation="0" zValue="1" positionOnPage="0,0,mm" itemRotation="0" mapFlags="0" keepLayerSet="false" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="" type="65639">
+      <LayoutItem uuid="{939554c2-90b4-49c4-9589-0a183a8e0cba}" labelMargin="0,mm" templateUuid="{939554c2-90b4-49c4-9589-0a183a8e0cba}" position="0,-2.84217e-14,mm" background="true" size="594,350,mm" drawCanvasItems="true" followPreset="true" followPresetName="Atlas" blendMode="0" excludeFromExports="0" mapRotation="-4" zValue="1" positionOnPage="0,-2.84217e-14,mm" itemRotation="0" mapFlags="0" keepLayerSet="false" opacity="1" frameJoinStyle="miter" id="" visibility="1" referencePoint="0" frame="false" positionLock="false" outlineWidthM="0.3,mm" groupUuid="" type="65639">
         <FrameColor red="0" green="0" alpha="255" blue="0"/>
         <BackgroundColor red="255" green="255" alpha="255" blue="255"/>
         <LayoutObject>
@@ -9286,7 +9317,7 @@ def my_form_open(dialog, layer, feature):
           </dataDefinedProperties>
           <customproperties/>
         </LayoutObject>
-        <Extent ymax="3649585.28713301103562117" xmin="-3146835.48208171175792813" ymin="-57234.31477660768723581" xmax="3144166.9280163268558681"/>
+        <Extent ymax="2847698.88193317363038659" xmin="-2381746.66513464692980051" ymin="-354391.26116983330575749" xmax="3052657.74916017055511475"/>
         <crs>
           <spatialrefsys>
             <wkt>PROJCRS["Canada_Lambert_Conformal_Conic",BASEGEOGCRS["NAD83",DATUM["North American Datum 1983",ELLIPSOID["GRS 1980",6378137,298.257222101,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4269]],CONVERSION["Canada_Lambert_Conformal_Conic",METHOD["Lambert Conic Conformal (2SP)",ID["EPSG",9802]],PARAMETER["Latitude of false origin",40,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8821]],PARAMETER["Longitude of false origin",-96,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8822]],PARAMETER["Latitude of 1st standard parallel",50,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8823]],PARAMETER["Latitude of 2nd standard parallel",70,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8824]],PARAMETER["Easting at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8826]],PARAMETER["Northing at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8827]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["unknown"],AREA["Canada"],BBOX[40.04,-141.01,86.46,-47.74]],ID["ESRI",102002]]</wkt>
