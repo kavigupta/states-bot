@@ -48,7 +48,7 @@ map_types = {
     "politics": 165,
     "atlas_europe": 165,
     "atlas_north_america": 165,
-    "atlas_euroamerica": 120,
+    "atlas_euroamerica": 110,
     "atlas_canada": 165,
 }
 
