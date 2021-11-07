@@ -10,7 +10,7 @@ from .geography import GeographySource
 from ..utils import to_all
 
 
-@permacache("statesbot/canada/canada_dataset")
+@permacache("statesbot/canada/canada_dataset_10")
 def canada_dataset():
     df = pd.read_csv("csvs/canada_census.csv", low_memory=False)
     df = df[df["DIM: Profile of Census Divisions (2247)"] == "Population, 2016"]
@@ -24,12 +24,13 @@ def canada_dataset():
     canada["population"] = canada["CDUID"].apply(lambda x: int(populations[int(x)]))
     canada["ident"] = canada["CDUID"]
     canada["dem_2020"] = 0
-    return canada[["ident", "geometry", "population", "dem_2020", "PRNAME"]]
+    canada["name"] = ""
+    return canada[["ident", "geometry", "population", "dem_2020", "name", "PRNAME"]]
 
 
 class CanadaDataset(GeographySource):
     def version(self):
-        return "1.0.5"
+        return "1.0.7"
 
     def geo_dataframe(self):
         return canada_dataset()

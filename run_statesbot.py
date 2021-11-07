@@ -5,6 +5,7 @@ import pickle
 import functools
 
 import numpy as np
+from statesbot.geographies.north_america import NorthAmericaDataset
 
 from statesbot.version import version
 from statesbot.run_sampler import sample_guaranteed
@@ -31,20 +32,22 @@ def guarantee_path(seed):
 
 
 def get_geography(seed):
-    with_weights = [
-        (EuroAmericaCountiesDataset, 1),
-        (EuropeCountiesDataset, 1),
-        (CanadaDataset, 1),
-        (USACountiesDataset, 2),
+    schedule = [
+        EuroAmericaCountiesDataset,
+        NorthAmericaDataset,
+        USACountiesDataset,
+        EuropeCountiesDataset,
+        CanadaDataset,
+        USACountiesDataset,
     ]
-    get_elems = [cls for cls, count in with_weights for _ in range(count)]
-    return get_elems[seed % len(get_elems)]().construct()
+    return schedule[seed % len(schedule)]().construct()
 
 
 map_types = {
     "atlas": 165,
     "politics": 165,
     "atlas_europe": 165,
+    "atlas_north_america": 165,
     "atlas_euroamerica": 130,
     "atlas_canada": 165,
 }

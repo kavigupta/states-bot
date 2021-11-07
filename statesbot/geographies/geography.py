@@ -109,9 +109,16 @@ class CombinedGeographySource(GeographySource):
     def glue_edges(self):
         pass
 
+    def remove_edges(self):
+        return []
+
     def version(self):
-        return f"{self.combined_version()} [" + ", ".join(
-            f"{k}={v.version()}" for k, v in sorted(self.elements().items())
+        return (
+            f"{self.combined_version()} ["
+            + ", ".join(
+                f"{k}={v.version()}" for k, v in sorted(self.elements().items())
+            )
+            + "]"
         )
 
     def geo_dataframe(self):
@@ -128,12 +135,21 @@ class CombinedGeographySource(GeographySource):
         edge_sets = [
             v.additional_edges() for _, v in sorted(self.elements().items())
         ] + [self.glue_edges()]
-        return [e for es in edge_sets for e in es]
+        edges = [e for es in edge_sets for e in es]
+        return [e for e in edges if e not in self.remove_edges()]
 
     def regions(self, geodb):
         regions = {}
-        for k, v in sorted(self.elements().items()):
-            regions.update(v.regions(v.geo_dataframe()))
+        start = 0
+        for _, v in sorted(self.elements().items()):
+            frame = v.geo_dataframe()
+            regions.update(
+                {
+                    region: [index + start for index in indices]
+                    for region, indices in v.regions(frame).items()
+                }
+            )
+            start += frame.shape[0]
         return regions
 
 
