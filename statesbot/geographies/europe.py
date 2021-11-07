@@ -132,7 +132,7 @@ def europe_nuts3_dataset():
     df = df.rename(columns={"NUTS_ID": "ident"})
 
     df = df[df.ident.apply(lambda x: x not in TO_REMOVE)]
-    return df
+    return df.rename(columns={"NAME_LATN": "name"})
 
 
 class EuropeCountiesDataset(GeographySource):

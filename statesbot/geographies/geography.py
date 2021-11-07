@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 import attr
 import numpy as np
+import pandas as pd
 from permacache import permacache
 
 from shapely.ops import transform
@@ -84,6 +85,57 @@ class GeographySource(ABC):
     def construct(self):
         return construct_geography(self)
 
+    def check_connected_components(self):
+        from ..graph import Graph
+
+        geo = self.construct()
+        graph = Graph(geo, eqstat_key="population")
+        result = sorted(
+            graph.connected_components(graph.nx_graph.nodes), key=len, reverse=True
+        )
+        return geo.table.iloc[[list(x)[0] for x in result]].sort_values("ident")
+
+
+class CombinedGeographySource(GeographySource):
+    @abstractmethod
+    def elements(self):
+        pass
+
+    @abstractmethod
+    def combined_version(self):
+        pass
+
+    @abstractmethod
+    def glue_edges(self):
+        pass
+
+    def version(self):
+        return f"{self.combined_version()} [" + ", ".join(
+            f"{k}={v.version()}" for k, v in sorted(self.elements().items())
+        )
+
+    def geo_dataframe(self):
+        return pd.concat(
+            [
+                v.geo_dataframe()[
+                    ["ident", "name", "geometry", "population", "dem_2020"]
+                ]
+                for _, v in sorted(self.elements().items())
+            ]
+        )
+
+    def additional_edges(self):
+        edge_sets = [
+            v.additional_edges() for _, v in sorted(self.elements().items())
+        ] + [self.glue_edges()]
+        return [e for es in edge_sets for e in es]
+
+    def regions(self, geodb):
+        regions = {}
+        for k, v in sorted(self.elements().items()):
+            regions.update(v.regions(v.geo_dataframe()))
+        return regions
+
 
 @permacache(
     "statesbot/geographies/geography",
@@ -106,8 +158,9 @@ def construct_geography(source):
     for x, y in weights:
         neighbors[x].add(y)
     for x, y in source.additional_edges():
+        original = f"{x} -- {y}"
         x, y = ident_back[x], ident_back[y]
-        assert x not in neighbors[y], str((x, y))
+        assert x not in neighbors[y], original
         neighbors[x].add(y)
         neighbors[y].add(x)
         weights[x, y] = weights[y, x] = 0
