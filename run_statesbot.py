@@ -12,6 +12,7 @@ from statesbot.tweet import tweet_map, current_tweet_id
 from statesbot.geographies.usa import USACountiesDataset
 from statesbot.geographies.euroamerica import EuroAmericaCountiesDataset
 from statesbot.geographies.europe import EuropeCountiesDataset
+from statesbot.geographies.canada import CanadaDataset
 
 
 def get_n_states(seed, max_states):
@@ -30,12 +31,14 @@ def guarantee_path(seed):
 
 
 def get_geography(seed):
-    if seed % 8 == 4:
-        return EuroAmericaCountiesDataset().construct()
-    if seed % 2 == 0:
-        return EuropeCountiesDataset().construct()
-    else:
-        return USACountiesDataset().construct()
+    with_weights = [
+        (EuroAmericaCountiesDataset, 1),
+        (EuropeCountiesDataset, 1),
+        (CanadaDataset, 1),
+        (USACountiesDataset, 2),
+    ]
+    get_elems = [cls for cls, count in with_weights for _ in range(count)]
+    return get_elems[seed % len(get_elems)]().construct()
 
 
 map_types = {
@@ -43,6 +46,7 @@ map_types = {
     "politics": 165,
     "atlas_europe": 165,
     "atlas_euroamerica": 130,
+    "atlas_canada": 165,
 }
 
 
