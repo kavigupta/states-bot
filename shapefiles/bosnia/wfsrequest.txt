@@ -1,0 +1,1 @@
+http://geonode.iwlearn.org/geoserver/wfs?access_token=b4f2b74b39ca11ec8d7d000d3ab6a624?format_options=charset%3AUTF-8&typename=geonode%3Aboasnia_and_herzegovina_admin_boundaries&outputFormat=SHAPE-ZIP&version=1.0.0&service=WFS&request=GetFeature&access_token=b4f2b74b39ca11ec8d7d000d3ab6a624
